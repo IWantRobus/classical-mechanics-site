@@ -1,0 +1,2300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Classical Mechanics</title>
+  <style>
+/* ========== MAIN STYLES ========== */
+/* =============================================
+   CLASSICAL MECHANICS — Global Stylesheet
+   ============================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #0a1628;
+  --accent: #1d6fa4;
+  --accent2: #00c6ff;
+  --text: #1a1a2e;
+  --muted: #5a6a7a;
+  --bg: #f0f4f8;
+  --card-bg: #ffffff;
+  --nav-bg: #0a1628;
+  --header-bg: linear-gradient(135deg, #0a1628 0%, #1a3a5c 50%, #0d2137 100%);
+  --shadow: 0 4px 20px rgba(0,0,0,0.08);
+  --radius: 12px;
+}
+
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.75;
+}
+
+/* ---- HEADER ---- */
+.site-header {
+  background: var(--header-bg);
+  padding: 24px 40px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.site-header img.logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 2px solid var(--accent2);
+  object-fit: cover;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.site-header img.logo:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 14px var(--accent2);
+}
+
+.site-header .header-text h1 {
+  font-size: 28px;
+  color: #ffffff;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.site-header .header-text p {
+  font-size: 13px;
+  color: #88aacc;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  font-style: italic;
+}
+
+/* ---- NAV ---- */
+.topnav {
+  background: #0d2137;
+  display: flex;
+  align-items: center;
+  padding: 0 40px;
+  border-bottom: 2px solid var(--accent);
+  flex-wrap: wrap;
+  gap: 0;
+}
+
+.topnav a {
+  display: inline-block;
+  color: #aabbcc;
+  text-decoration: none;
+  padding: 14px 20px;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+}
+
+.topnav a:hover {
+  color: #ffffff;
+  background: rgba(255,255,255,0.05);
+}
+
+.topnav a.active {
+  color: var(--accent2);
+  border-bottom: 3px solid var(--accent2);
+}
+
+/* ---- SEARCH ---- */
+.topnav .search-wrapper {
+  margin-left: auto;
+  position: relative;
+}
+
+.topnav .search-box {
+  padding: 7px 14px 7px 36px;
+  border: 1px solid #2a4a6a;
+  border-radius: 20px;
+  background: #0a1a2a;
+  color: #aabbcc;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  outline: none;
+  width: 200px;
+  transition: border-color 0.2s, width 0.3s;
+}
+
+.topnav .search-box:focus {
+  border-color: var(--accent2);
+  color: white;
+  width: 240px;
+}
+
+.search-icon {
+  position: absolute;
+  left: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #5a7a9a;
+  font-size: 14px;
+  pointer-events: none;
+}
+
+/* Search results dropdown */
+.search-results {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  width: 300px;
+  background: #0d2137;
+  border: 1px solid #2a4a6a;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  z-index: 100;
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+.search-results.open { display: block; }
+
+.search-result-item {
+  padding: 12px 16px;
+  cursor: pointer;
+  border-bottom: 1px solid #1a3a5a;
+  transition: background 0.15s;
+}
+
+.search-result-item:last-child { border-bottom: none; }
+
+.search-result-item:hover {
+  background: rgba(0,198,255,0.08);
+}
+
+.search-result-item .result-title {
+  color: var(--accent2);
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.search-result-item .result-snippet {
+  color: #88aacc;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-result-item .result-snippet mark {
+  background: rgba(0,198,255,0.25);
+  color: #ffffff;
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+.search-no-results {
+  padding: 16px;
+  color: #5a7a9a;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  text-align: center;
+}
+
+/* ---- HERO / BANNER ---- */
+.hero {
+  background: var(--header-bg);
+  padding: 60px 40px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Orbital_motion.gif/320px-Orbital_motion.gif') center/cover;
+  opacity: 0.06;
+}
+
+.hero h2 {
+  font-size: 36px;
+  color: #ffffff;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.hero p {
+  font-size: 16px;
+  color: #88aacc;
+  max-width: 620px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  position: relative;
+}
+
+/* ---- CONTENT ---- */
+.content {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 24px;
+}
+
+/* ---- CARDS ---- */
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 32px 36px;
+  margin-bottom: 28px;
+  box-shadow: var(--shadow);
+  border-left: 4px solid var(--accent);
+}
+
+.card h2 {
+  font-size: 22px;
+  color: var(--accent);
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e0e8f0;
+}
+
+.card h3 {
+  font-size: 17px;
+  color: var(--text);
+  margin: 20px 0 8px;
+}
+
+.card p {
+  color: #334455;
+  margin-bottom: 14px;
+  font-size: 15px;
+}
+
+.card ul {
+  padding-left: 22px;
+  color: #334455;
+  font-size: 15px;
+}
+
+.card ul li {
+  margin-bottom: 8px;
+}
+
+/* ---- EQUATION BOX ---- */
+.equation {
+  background: #f0f4f8;
+  border: 1px solid #c8d8e8;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 16px 0;
+  font-family: 'Courier New', monospace;
+  font-size: 16px;
+  text-align: center;
+  color: var(--accent);
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* ---- FACT BOX ---- */
+.fact-box {
+  background: linear-gradient(135deg, #e8f4fd, #d6eaf8);
+  border-left: 4px solid var(--accent2);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 20px 0;
+  font-style: italic;
+  color: #1a3a5c;
+  font-size: 14px;
+}
+
+/* ---- SCIENTIST CARD ---- */
+.scientist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 16px;
+}
+
+.scientist-card {
+  background: #f7fafc;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid #dde8f0;
+  transition: transform 0.2s;
+}
+
+.scientist-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.scientist-card .name {
+  font-weight: bold;
+  font-size: 15px;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.scientist-card .dates {
+  font-size: 12px;
+  color: var(--muted);
+  font-family: Arial, sans-serif;
+  margin-bottom: 8px;
+}
+
+.scientist-card p {
+  font-size: 13px;
+  color: #445566;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* ---- IMAGE ---- */
+.content img {
+  max-width: 100%;
+  border-radius: 10px;
+  display: block;
+  margin: 16px auto;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+}
+
+/* ---- FOOTER ---- */
+footer {
+  background: var(--primary);
+  color: #667788;
+  text-align: center;
+  padding: 24px 40px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  margin-top: 60px;
+}
+
+footer span { color: var(--accent2); }
+
+/* ---- RESEARCH PAGE STYLES ---- */
+.research-hero {
+  background: linear-gradient(135deg, #1a0a2e 0%, #2d1060 50%, #0a1628 100%);
+  padding: 60px 40px;
+  text-align: center;
+}
+.research-hero h2 { font-size: 28px; color: #ffffff; margin-bottom: 10px; }
+.research-hero .subtitle { font-size: 14px; color: #bb88ff; max-width: 700px; margin: 0 auto 16px; font-family: Arial, sans-serif; font-style: italic; }
+.research-hero .author-badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid #9955ff;
+  border-radius: 20px;
+  padding: 6px 18px;
+  font-size: 13px;
+  color: #cc99ff;
+  font-family: Arial, sans-serif;
+}
+.abstract-box {
+  background: #1a0a2e11;
+  border: 1px solid #9955ff44;
+  border-left: 4px solid #9955ff;
+  border-radius: 10px;
+  padding: 20px 24px;
+  font-style: italic;
+  color: #334455;
+  font-size: 14px;
+  line-height: 1.8;
+  margin: 16px 0;
+}
+.paper-equation {
+  background: #1a0a2e;
+  border: 1px solid #9955ff44;
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin: 16px 0;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  text-align: center;
+  color: #cc99ff;
+  font-weight: bold;
+  word-break: break-word;
+  line-height: 1.9;
+  overflow-x: auto;
+}
+.contribution-tag {
+  display: inline-block;
+  background: #9955ff22;
+  border: 1px solid #9955ff44;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 12px;
+  color: #9955ff;
+  font-family: Arial, sans-serif;
+  margin-right: 6px;
+  margin-bottom: 4px;
+}
+.section-divider {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #9955ff;
+  margin: 36px 0 4px;
+  padding-top: 8px;
+  border-top: 1px solid #9955ff33;
+}
+
+/* ---- RESPONSIVE ---- */
+@media (max-width: 768px) {
+  .site-header { padding: 14px 16px; gap: 12px; }
+  .site-header img.logo { width: 42px; height: 42px; flex-shrink: 0; }
+  .site-header .header-text h1 { font-size: 18px; }
+  .site-header .header-text p { font-size: 11px; }
+  .topnav {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    flex-wrap: nowrap;
+    padding: 0 6px;
+    scrollbar-width: none;
+  }
+  .topnav::-webkit-scrollbar { display: none; }
+  .topnav a {
+    white-space: nowrap;
+    font-size: 12px;
+    padding: 11px 12px;
+    flex-shrink: 0;
+    border-bottom-width: 2px;
+  }
+  .topnav .search-wrapper { display: none; }
+  .hero, .research-hero { padding: 30px 16px; }
+  .hero h2, .research-hero h2 { font-size: 22px; }
+  .hero p, .research-hero .subtitle { font-size: 13px; }
+  .research-hero .author-badge { font-size: 11px; padding: 5px 12px; }
+  .content { padding: 0 12px; margin: 20px auto; }
+  .card { padding: 16px; margin-bottom: 16px; border-radius: 8px; }
+  .card h2 { font-size: 17px; margin-bottom: 10px; }
+  .card h3 { font-size: 15px; }
+  .card p, .card ul { font-size: 14px; }
+  .equation { font-size: 13px; padding: 12px; overflow-x: auto; white-space: nowrap; }
+  .paper-equation { font-size: 11px; padding: 12px 10px; text-align: left; white-space: pre-wrap; word-break: break-word; }
+  .scientist-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
+  .scientist-card { padding: 14px; }
+  .scientist-card .name { font-size: 13px; }
+  .scientist-card p { font-size: 12px; }
+  .fact-box { font-size: 13px; padding: 12px 14px; }
+  footer { padding: 16px; font-size: 12px; }
+}
+
+@media (max-width: 380px) {
+  .site-header .header-text h1 { font-size: 15px; }
+  .hero h2, .research-hero h2 { font-size: 18px; }
+  .card h2 { font-size: 15px; }
+  .topnav a { font-size: 11px; padding: 10px 9px; }
+}
+
+
+/* ========== SPA ========== */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ========== SECRET PAGE — scoped to body.secret-active ========== */
+body.secret-active {
+  background: #000 !important;
+  overflow-x: hidden;
+}
+body.secret-active footer { display: none; }
+body.secret-active #main-nav { display: none; }
+body.secret-active .site-header { display: none; }
+
+#particle-canvas {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+body.secret-active #particle-canvas { display: block; }
+
+body.secret-active /* ===== SECRET PAGE STYLES ===== */
+    body {
+
+      background: #000;
+      overflow-x: hidden;
+    
+}
+body.secret-active #particle-canvas {
+
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    
+}
+body.secret-active .secret-container {
+
+      position: relative;
+      z-index: 10;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      text-align: center;
+    
+}
+body.secret-active /* ---- WAVE TITLE ---- */
+    .wave-title {
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: nowrap;
+      margin-bottom: 12px;
+      user-select: none;
+      cursor: pointer;
+      min-height: clamp(50px, 10vw, 100px);
+    
+}
+body.secret-active .wave-letter {
+
+      display: inline-block;
+      font-size: clamp(30px, 7vw, 68px);
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+      color: #00c6ff;
+      text-shadow: 0 0 14px #00c6ff, 0 0 28px #00c6ff44;
+      /* transform set by JS — translateX (longitudinal) + translateY (transverse) */
+      will-change: transform, color, text-shadow;
+      transition: color 0.1s;
+    
+}
+body.secret-active .wave-letter.space {
+
+      /* spaces just move horizontally with longitudinal wave, no glyph */
+      min-width: 0.3em;
+    
+}
+@keyframes flicker {
+
+      0%, 94%, 100% 
+{
+ opacity: 1; 
+}
+
+      95% 
+{
+ opacity: 0.55; 
+}
+
+      97% 
+{
+ opacity: 0.35; 
+}
+
+      99% 
+{
+ opacity: 0.8; 
+}
+
+    
+}
+body.secret-active .subtitle-secret {
+
+      font-family: 'Courier New', monospace;
+      color: #aa44ff;
+      font-size: clamp(12px, 3vw, 18px);
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeIn 1.5s ease 0.8s forwards;
+      text-shadow: 0 0 10px #aa44ff;
+    
+}
+@keyframes fadeIn {
+
+      to 
+{
+ opacity: 1; 
+}
+
+    
+}
+body.secret-active .secret-card {
+
+      background: rgba(10, 5, 20, 0.85);
+      border: 1px solid #aa44ff44;
+      border-radius: 16px;
+      padding: 32px 40px;
+      max-width: 640px;
+      width: 100%;
+      box-shadow: 0 0 40px rgba(170, 68, 255, 0.2), inset 0 0 40px rgba(0,198,255,0.04);
+      opacity: 0;
+      transform: translateY(30px);
+      animation: slideUp 1s ease 1.2s forwards;
+      margin-bottom: 24px;
+    
+}
+@keyframes slideUp {
+
+      to 
+{
+ opacity: 1; transform: translateY(0); 
+}
+
+    
+}
+body.secret-active .secret-card p {
+
+      color: #aabbcc;
+      font-family: 'Courier New', monospace;
+      font-size: 15px;
+      line-height: 1.9;
+      margin-bottom: 16px;
+    
+}
+body.secret-active .secret-card p:last-child {
+ margin-bottom: 0; 
+}
+body.secret-active .secret-card .highlight {
+
+      color: #00c6ff;
+      font-weight: bold;
+    
+}
+body.secret-active .secret-card .purple {
+
+      color: #cc99ff;
+    
+}
+body.secret-active /* Morse code display */
+    .morse-line {
+
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      color: #aa44ff;
+      letter-spacing: 3px;
+      margin: 16px 0;
+      min-height: 20px;
+      text-shadow: 0 0 8px #aa44ff;
+    
+}
+body.secret-active /* Konami code overlay */
+    #konami-overlay {
+
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 999;
+      background: radial-gradient(ellipse at center, #1a0a3e 0%, #000 100%);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px;
+    
+}
+body.secret-active #konami-overlay.show {
+ display: flex; 
+}
+body.secret-active #konami-overlay h2 {
+
+      font-family: 'Courier New', monospace;
+      font-size: clamp(24px, 6vw, 52px);
+      color: #ffcc00;
+      text-shadow: 0 0 30px #ffcc00;
+      margin-bottom: 20px;
+      animation: pulse 1s ease infinite alternate;
+    
+}
+@keyframes pulse {
+
+      from 
+{
+ text-shadow: 0 0 10px #ffcc00; 
+}
+
+      to   
+{
+ text-shadow: 0 0 40px #ffcc00, 0 0 80px #ffaa00; 
+}
+
+    
+}
+body.secret-active #konami-overlay p {
+
+      color: #aabbcc;
+      font-family: 'Courier New', monospace;
+      font-size: 16px;
+      max-width: 500px;
+      margin-bottom: 30px;
+    
+}
+body.secret-active #konami-close {
+
+      background: #ffcc00;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 28px;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.2s;
+    
+}
+body.secret-active #konami-close:hover {
+ transform: scale(1.05); 
+}
+body.secret-active /* Floating equations */
+    .floating-eq {
+
+      position: fixed;
+      font-family: 'Courier New', monospace;
+      color: rgba(0, 198, 255, 0.12);
+      font-size: clamp(10px, 2vw, 16px);
+      pointer-events: none;
+      z-index: 1;
+      animation: floatUp linear forwards;
+      white-space: nowrap;
+    
+}
+@keyframes floatUp {
+
+      0%   
+{
+ transform: translateY(0) rotate(0deg);   opacity: 0; 
+}
+
+      10%  
+{
+ opacity: 1; 
+}
+
+      90%  
+{
+ opacity: 0.7; 
+}
+
+      100% 
+{
+ transform: translateY(-100vh) rotate(20deg); opacity: 0; 
+}
+
+    
+}
+body.secret-active /* Back button */
+    .back-btn {
+
+      display: inline-block;
+      margin-top: 10px;
+      padding: 12px 30px;
+      background: transparent;
+      border: 1px solid #aa44ff;
+      border-radius: 24px;
+      color: #aa44ff;
+      font-family: 'Courier New', monospace;
+      font-size: 14px;
+      text-decoration: none;
+      transition: all 0.3s;
+      opacity: 0;
+      animation: fadeIn 1s ease 2.5s forwards;
+    
+}
+body.secret-active .back-btn:hover {
+
+      background: #aa44ff22;
+      box-shadow: 0 0 20px #aa44ff44;
+      color: #ffffff;
+    
+}
+body.secret-active /* Cursor blink */
+    .cursor {
+
+      display: inline-block;
+      width: 10px;
+      height: 1.2em;
+      background: #00c6ff;
+      vertical-align: middle;
+      margin-left: 4px;
+      animation: blink 1s step-end infinite;
+    
+}
+@keyframes blink {
+
+      50% 
+{
+ opacity: 0; 
+}
+
+    
+}
+body.secret-active /* Visit counter */
+    #visit-counter {
+
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      color: #335566;
+      margin-top: 8px;
+      opacity: 0;
+      animation: fadeIn 1s ease 3s forwards;
+    
+}
+body.secret-active /* Konami hint */
+    .konami-hint {
+
+      font-family: 'Courier New', monospace;
+      font-size: 11px;
+      color: #333344;
+      margin-top: 16px;
+      opacity: 0;
+      animation: fadeIn 2s ease 5s forwards;
+    
+}
+
+/* ========== MOBILE ========== */
+@media (max-width: 768px) {
+  .site-header { padding: 14px 16px; gap: 12px; }
+  .site-header img.logo { width: 42px; height: 42px; flex-shrink: 0; }
+  .site-header .header-text h1 { font-size: 18px; }
+  .site-header .header-text p { font-size: 11px; }
+  .topnav { overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; padding: 0 6px; scrollbar-width: none; }
+  .topnav::-webkit-scrollbar { display: none; }
+  .topnav a { white-space: nowrap; font-size: 12px; padding: 11px 12px; flex-shrink: 0; border-bottom-width: 2px; }
+  .topnav .search-wrapper { display: none; }
+  .hero, .research-hero { padding: 30px 16px; }
+  .hero h2, .research-hero h2 { font-size: 22px; }
+  .hero p, .research-hero .subtitle { font-size: 13px; }
+  .research-hero .author-badge { font-size: 11px; padding: 5px 12px; }
+  .content { padding: 0 12px; margin: 20px auto; }
+  .card { padding: 16px; margin-bottom: 16px; border-radius: 8px; }
+  .card h2 { font-size: 17px; margin-bottom: 10px; }
+  .card h3 { font-size: 15px; }
+  .card p, .card ul { font-size: 14px; }
+  .equation { font-size: 13px; padding: 12px; overflow-x: auto; white-space: nowrap; }
+  .paper-equation { font-size: 11px; padding: 12px 10px; word-break: break-word; line-height: 1.8; }
+  .scientist-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
+  .fact-box { font-size: 13px; padding: 12px 14px; }
+  footer { padding: 16px; font-size: 12px; }
+  /* Secret mobile */
+  body.secret-active .wave-title { min-height: clamp(60px, 14vw, 100px); margin-bottom: 16px; }
+  body.secret-active .wave-letter { font-size: clamp(24px, 7vw, 52px); }
+  body.secret-active .secret-card { padding: 20px 18px; margin-bottom: 16px; }
+  body.secret-active .secret-card p { font-size: 13px; }
+}
+@media (max-width: 380px) {
+  body.secret-active .wave-letter { font-size: 22px; }
+}
+  </style>
+</head>
+<body>
+
+  <div id="nav-mount"></div>
+
+  
+<div id="page-index" class="page active">
+<div class="hero">
+    <h2>Classical Mechanics</h2>
+    <p>A timeless framework describing how the physical world moves — from falling apples to orbiting planets.</p>
+  </div>
+
+  <div class="content">
+
+    <div class="card">
+      <h2>What is Classical Mechanics?</h2>
+      <p>Classical mechanics is the branch of physics that tries to make sense of how things move — from cannonballs to planets, from spinning tops to colliding billiard balls. At its heart, it's built on a handful of principles about force, mass, energy, and momentum that turn out to be remarkably good at describing the world around us.</p>
+      <p>It's worth knowing where it fits in the bigger picture: classical mechanics handles objects large enough that quantum weirdness doesn't matter, and moving slowly enough that Einstein's relativistic effects can be safely ignored. In that sweet spot — which happens to cover most of everyday engineering and astronomy — it's essentially exact.</p>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Orbital_motion.gif" alt="Orbital motion animation">
+      <div class="fact-box">
+        "If I have seen further, it is by standing on the shoulders of giants." — Isaac Newton
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Core Concepts</h2>
+      <h3>Newton's Laws of Motion</h3>
+      <p>The three laws Newton laid out in 1687 still sit at the centre of classical mechanics, and they're worth knowing cold:</p>
+      <ul>
+        <li><strong>First Law (Inertia):</strong> An object keeps doing what it's doing — rest or constant motion — unless something pushes or pulls it.</li>
+        <li><strong>Second Law (F = ma):</strong> The harder you push something, and the lighter it is, the faster it accelerates.</li>
+        <li><strong>Third Law (Action-Reaction):</strong> Every force comes with an equal and opposite force in the other direction — no exceptions.</li>
+      </ul>
+      <div class="equation">F = ma</div>
+
+      <h3>Conservation Laws</h3>
+      <ul>
+        <li><strong>Conservation of Energy:</strong> In a closed system, energy doesn't appear or vanish — it just changes form.</li>
+        <li><strong>Conservation of Momentum:</strong> Without external forces, the total momentum of a system stays fixed.</li>
+        <li><strong>Conservation of Angular Momentum:</strong> Without external torque, spinning things keep spinning at the same rate — which is why ice skaters speed up when they pull in their arms.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Three Formulations</h2>
+      <p>Over the centuries, physicists found cleverer and cleverer ways to express the same underlying physics. Each formulation has its strengths depending on the problem at hand:</p>
+      <div class="scientist-grid">
+        <div class="scientist-card">
+          <div class="name">Newtonian Mechanics</div>
+          <div class="dates">~1687</div>
+          <p>Forces and direct application of Newton's laws. The most intuitive starting point for most problems.</p>
+        </div>
+        <div class="scientist-card">
+          <div class="name">Lagrangian Mechanics</div>
+          <div class="dates">~1788</div>
+          <p>Works with energy rather than forces. Handles constrained systems and awkward coordinate systems beautifully.</p>
+        </div>
+        <div class="scientist-card">
+          <div class="name">Hamiltonian Mechanics</div>
+          <div class="dates">~1833</div>
+          <p>Uses phase space and canonical variables — the natural bridge from classical physics into quantum theory.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Key Figures</h2>
+      <div class="scientist-grid">
+        <div class="scientist-card">
+          <div class="name">Isaac Newton</div>
+          <div class="dates">1643 – 1727</div>
+          <p>Wrote the rulebook for classical mechanics in his Principia Mathematica — laws of motion and universal gravitation in one go.</p>
+        </div>
+        <div class="scientist-card">
+          <div class="name">Galileo Galilei</div>
+          <div class="dates">1564 – 1642</div>
+          <p>Did the hard experimental work first — rolling balls, timing pendulums, dropping things from towers to see what actually happens.</p>
+        </div>
+        <div class="scientist-card">
+          <div class="name">Leonhard Euler</div>
+          <div class="dates">1707 – 1783</div>
+          <p>Gave classical mechanics much of its mathematical machinery, including the equations governing rigid body motion.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span>Classical Mechanics</span> — An Educational Resource | Built by Tioluwalope Adesuyan
+  </footer>
+</div>
+
+<div id="page-hamilton" class="page">
+<div class="hero">
+    <h2>Hamiltonian Mechanics</h2>
+    <p>An elegant reformulation using phase space — the bridge between classical and quantum mechanics.</p>
+  </div>
+
+  <div class="content">
+
+    <div class="card">
+      <h2>William Rowan Hamilton (1805–1865)</h2>
+      <p>Sir William Rowan Hamilton was an Irish mathematician and physicist who, in 1833, took Lagrangian mechanics and pushed it into a more symmetric and — as it turned out — far more powerful form. He introduced the concept of <strong>phase space</strong> and the <strong>Hamiltonian function</strong>, and in doing so accidentally laid the mathematical groundwork that quantum mechanics would need two centuries later.</p>
+      <div class="fact-box">
+        "Time is said to have only one dimension, and space to have three dimensions... the mathematical quaternion partakes of both these elements." — William Rowan Hamilton
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>The Hamiltonian Function</h2>
+      <p>The Hamiltonian H is built from the Lagrangian via a mathematical operation called the Legendre transform. For most systems you'll encounter, it turns out to simply equal the <strong>total energy</strong>:</p>
+      <div class="equation">H = T + V</div>
+      <p>That plus sign is what makes it different from the Lagrangian (L = T − V). It's a small change that leads to a much more symmetric set of equations.</p>
+      <p>Crucially, H is expressed as a function of <strong>generalised coordinates q</strong> and their paired <strong>canonical momenta p</strong>:</p>
+      <div class="equation">H = H(q, p, t)</div>
+    </div>
+
+    <div class="card">
+      <h2>Hamilton's Equations of Motion</h2>
+      <p>Instead of one second-order equation per degree of freedom (Lagrange's approach), Hamilton gives us two first-order equations. They look almost mirror-image of each other:</p>
+      <div class="equation">dq/dt = +∂H/∂p</div>
+      <div class="equation">dp/dt = −∂H/∂q</div>
+      <p>These are <strong>Hamilton's canonical equations</strong>. Notice the symmetry — one has a plus, one a minus. That elegant pairing is the signature of Hamiltonian mechanics, and it makes the mathematics of advanced physics much cleaner to work with.</p>
+    </div>
+
+    <div class="card">
+      <h2>Phase Space</h2>
+      <p>Here's the really interesting idea Hamilton brought to physics: <strong>phase space</strong>. Instead of just tracking where a particle is, you track both its position and its momentum at once. A system with N degrees of freedom lives in a 2N-dimensional phase space, and its entire history traces a single continuous path through it.</p>
+      <ul>
+        <li><strong>Trajectories never cross</strong> — knowing the state at any moment tells you everything about its future and past.</li>
+        <li><strong>Liouville's Theorem:</strong> The "volume" that a bunch of trajectories occupies in phase space stays constant over time — the flow is incompressible.</li>
+        <li><strong>Chaos:</strong> Nearby trajectories can diverge exponentially — tiny differences in starting conditions snowball into wildly different outcomes. This is where the butterfly effect lives.</li>
+      </ul>
+      <div class="fact-box">
+        Phase space carries over directly into quantum mechanics, where classical positions and momenta become operators on a Hilbert space.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Conservation and Symmetry</h2>
+      <p>One of the most beautiful payoffs of Hamiltonian mechanics is how directly it connects <strong>symmetry to conservation laws</strong> (a relationship fully formalised by Noether's theorem):</p>
+      <ul>
+        <li><strong>H doesn't depend on time</strong> ⟹ total energy is conserved</li>
+        <li><strong>H doesn't depend on a coordinate q</strong> ⟹ the corresponding momentum p is conserved</li>
+        <li><strong>H is rotationally symmetric</strong> ⟹ angular momentum is conserved</li>
+      </ul>
+      <p>This isn't just a mathematical curiosity — it's one of the deepest ideas in all of physics. Every conservation law in nature corresponds to some symmetry.</p>
+    </div>
+
+    <div class="card">
+      <h2>Bridge to Quantum Mechanics</h2>
+      <p>When Schrödinger and Heisenberg built quantum mechanics in the 1920s, they were essentially translating Hamiltonian mechanics into a new language. The recipe was:</p>
+      <ul>
+        <li>Replace H with the <strong>Hamiltonian operator Ĥ</strong></li>
+        <li>Replace position q with the <strong>position operator x̂</strong></li>
+        <li>Replace momentum p with <strong>p̂ = −iℏ ∂/∂x</strong></li>
+      </ul>
+      <div class="equation">Ĥ|ψ⟩ = iℏ ∂|ψ⟩/∂t</div>
+      <p>That's the <strong>Schrödinger equation</strong> — the quantum version of Hamilton's equations, governing how quantum states evolve. Without Hamiltonian mechanics, none of this would have had a natural mathematical home to land in.</p>
+      <div class="fact-box">
+        Without Hamiltonian mechanics, the mathematical language of quantum mechanics would not exist.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Applications</h2>
+      <ul>
+        <li><strong>Celestial mechanics:</strong> Studying the long-term stability of planetary orbits</li>
+        <li><strong>Chaos theory:</strong> Understanding sensitive dependence on initial conditions</li>
+        <li><strong>Quantum mechanics:</strong> The Hamiltonian operator governs all quantum time evolution</li>
+        <li><strong>Statistical mechanics:</strong> Thermodynamics built up from Hamiltonian phase space ideas</li>
+        <li><strong>Particle accelerators:</strong> Beam optics designed using Hamiltonian methods</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <footer>
+    <span>Classical Mechanics</span> — An Educational Resource | Built by Tioluwalope Adesuyan
+  </footer>
+</div>
+
+<div id="page-lagrange" class="page">
+<div class="hero">
+    <h2>Lagrangian Mechanics</h2>
+    <p>A powerful reformulation of classical mechanics using energy rather than forces — ideal for complex systems.</p>
+  </div>
+
+  <div class="content">
+
+    <div class="card">
+      <h2>Joseph-Louis Lagrange (1736–1813)</h2>
+      <p>Joseph-Louis Lagrange was an Italian-French mathematician and astronomer who, in his 1788 masterwork <em>Mécanique analytique</em>, completely rethought how we do mechanics. Rather than tracking forces — which are vectors and can get messy — he said: what if we just work with energy? The result was a framework so clean and general that it ended up underpinning not just classical mechanics, but quantum mechanics, electromagnetism, and general relativity too.</p>
+      <div class="fact-box">
+        "There are no more problems in mechanics — only calculations." — Joseph-Louis Lagrange
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>The Core Idea</h2>
+      <p>The whole approach rests on two scalar quantities — just numbers, not vectors:</p>
+      <ul>
+        <li><strong>T</strong> — Kinetic energy (how much energy is tied up in motion)</li>
+        <li><strong>V</strong> — Potential energy (stored energy — gravitational, spring, etc.)</li>
+      </ul>
+      <p>The <strong>Lagrangian</strong> is simply their difference:</p>
+      <div class="equation">L = T − V</div>
+      <p>From this one function, you can derive the complete equations of motion for any system — no force diagrams required.</p>
+    </div>
+
+    <div class="card">
+      <h2>The Euler-Lagrange Equation</h2>
+      <p>Once you have the Lagrangian, the equations of motion follow from a single formula — the Euler-Lagrange equation:</p>
+      <div class="equation">d/dt (∂L/∂q̇) − ∂L/∂q = 0</div>
+      <p>A quick guide to the notation:</p>
+      <ul>
+        <li><strong>q</strong> = a generalised coordinate — could be an angle, a length, whatever best describes your system</li>
+        <li><strong>q̇</strong> = how fast that coordinate is changing (its time derivative)</li>
+        <li><strong>∂L/∂q</strong> = how the Lagrangian responds to a change in q</li>
+      </ul>
+      <p>One equation like this per coordinate gives you the full motion of the system. That's it.</p>
+    </div>
+
+    <div class="card">
+      <h2>The Principle of Least Action</h2>
+      <p>Why does the Euler-Lagrange equation work? It comes from a deeper principle: <strong>nature takes the path that minimises the action S</strong>, which is the integral of the Lagrangian over time:</p>
+      <div class="equation">S = ∫ L dt = ∫ (T − V) dt</div>
+      <p>Out of all the possible paths a system could take between two states, the actual physical path is the one where S is stationary (usually minimum). This Principle of Least Action is one of the most profound ideas in all of physics — it shows up everywhere from optics to quantum field theory.</p>
+      <div class="fact-box">
+        The Principle of Least Action is one of the deepest unifying ideas in all of physics — and it was Lagrange who put it centre stage.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Why Use Lagrangian Mechanics?</h2>
+      <h3>Advantages over Newtonian mechanics:</h3>
+      <ul>
+        <li><strong>Constraint forces vanish:</strong> You never need to calculate tension, normal forces, or friction — they drop out automatically when you choose the right coordinates.</li>
+        <li><strong>Total freedom of coordinates:</strong> Use angles, arc lengths, or any other quantity that suits the geometry of your problem. No need to stick to x, y, z.</li>
+        <li><strong>Scales well:</strong> Works cleanly for systems with many degrees of freedom — robot arms, flexible structures, coupled oscillators.</li>
+        <li><strong>Symmetry → conservation:</strong> If L doesn't depend on a coordinate, the corresponding momentum is automatically conserved (Noether's theorem).</li>
+      </ul>
+
+      <h3>Classic Example — The Pendulum</h3>
+      <p>For a simple pendulum of length l and mass m, the natural coordinate is the angle θ:</p>
+      <div class="equation">T = ½ml²θ̇²</div>
+      <div class="equation">V = −mgl·cos(θ)</div>
+      <div class="equation">L = ½ml²θ̇² + mgl·cos(θ)</div>
+      <p>Plug into the Euler-Lagrange equation and out comes the equation of motion: θ̈ = −(g/l)sin(θ). No force diagrams, no tension calculations — just algebra.</p>
+    </div>
+
+    <div class="card">
+      <h2>Applications</h2>
+      <ul>
+        <li><strong>Robotics:</strong> Computing the motion of multi-joint arms</li>
+        <li><strong>Orbital mechanics:</strong> Deriving planetary equations of motion</li>
+        <li><strong>Structural engineering:</strong> Vibration analysis of complex structures</li>
+        <li><strong>Particle physics:</strong> The Standard Model is written as a single Lagrangian</li>
+        <li><strong>General Relativity:</strong> Einstein derived his field equations from a Lagrangian principle</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <footer>
+    <span>Classical Mechanics</span> — An Educational Resource | Built by Tioluwalope Adesuyan
+  </footer>
+</div>
+
+<div id="page-newton" class="page">
+<div class="hero">
+    <h2>Newtonian Mechanics</h2>
+    <p>The original framework of classical physics — describing the world through forces, mass, and acceleration.</p>
+  </div>
+
+  <div class="content">
+
+    <div class="card">
+      <h2>Isaac Newton (1643–1727)</h2>
+      <p>Sir Isaac Newton was an English mathematician, physicist, and astronomer whose 1687 work <em>Philosophiæ Naturalis Principia Mathematica</em> quite literally changed how humans understand the universe. In it, he laid down three laws of motion and a law of universal gravitation that — for the first time — gave a single coherent account of both falling objects on Earth and the orbits of planets in the sky. It's hard to overstate how much of modern science and engineering still rests on what Newton wrote in that book.</p>
+      <div class="fact-box">
+        "Nature is pleased with simplicity, and affects not the pomp of superfluous causes." — Isaac Newton
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Newton's Three Laws of Motion</h2>
+
+      <h3>First Law — The Law of Inertia</h3>
+      <p>An object at rest stays at rest, and an object in motion keeps moving at the same speed and direction — unless something actually pushes or pulls it. This sounds obvious now, but it was revolutionary: it told us that motion doesn't need a cause, only <em>change</em> in motion does.</p>
+      <div class="equation">ΣF = 0 ⟹ v = constant</div>
+      <p>A hockey puck sliding on perfectly frictionless ice would go on forever. Nothing mysterious — it just has no reason to slow down.</p>
+
+      <h3>Second Law — F = ma</h3>
+      <p>The acceleration you get out of an object depends on how hard you push it (force) and how much it resists (mass). Double the force, double the acceleration. Double the mass, half the acceleration for the same push.</p>
+      <div class="equation">F = ma &nbsp;&nbsp;⟹&nbsp;&nbsp; a = F / m</div>
+      <p>A 10 kg object pushed with 20 N accelerates at 2 m/s². That's it — one equation, enormous range of applications.</p>
+
+      <h3>Third Law — Action and Reaction</h3>
+      <p>Whenever you push something, it pushes back on you with equal force in the opposite direction. No exceptions. When you push against a wall, the wall pushes back. When a gun fires a bullet forward, the gun kicks backward. When a rocket expels gas downward, the rocket is pushed upward.</p>
+      <div class="equation">F₁₂ = −F₂₁</div>
+    </div>
+
+    <div class="card">
+      <h2>Universal Gravitation</h2>
+      <p>Newton also worked out that every mass in the universe attracts every other mass, with a force that gets stronger as objects get heavier and weaker as they move apart. The exact relationship:</p>
+      <div class="equation">F = G · (m₁ · m₂) / r²</div>
+      <ul>
+        <li><strong>G</strong> = 6.674 × 10⁻¹¹ N·m²/kg² — the gravitational constant</li>
+        <li><strong>m₁, m₂</strong> = the two masses involved</li>
+        <li><strong>r</strong> = the distance between their centres</li>
+      </ul>
+      <p>This one equation explains why apples fall, why the Moon stays in orbit, and why the planets trace the ellipses Kepler had carefully mapped out decades earlier. Newton didn't just describe these things — he showed they're all the same phenomenon.</p>
+    </div>
+
+    <div class="card">
+      <h2>Key Applications</h2>
+      <ul>
+        <li><strong>Projectile Motion:</strong> Working out where a thrown ball or fired shell lands</li>
+        <li><strong>Orbital Mechanics:</strong> Predicting the orbits of planets, moons, and satellites</li>
+        <li><strong>Simple Machines:</strong> Levers, pulleys, inclined planes — all follow Newton's laws directly</li>
+        <li><strong>Fluid Dynamics:</strong> Forces on objects moving through air or water</li>
+        <li><strong>Engineering:</strong> Structural analysis, vehicle dynamics, aerospace design</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Limitations</h2>
+      <p>Newtonian mechanics is incredibly accurate across a vast range of everyday situations — but push it to extremes and it starts to break down:</p>
+      <ul>
+        <li><strong>Very high speeds</strong> (approaching the speed of light) — you need Einstein's Special Relativity instead</li>
+        <li><strong>Very small scales</strong> (atoms and subatomic particles) — you need Quantum Mechanics</li>
+        <li><strong>Very strong gravity</strong> (near black holes, near the Big Bang) — you need General Relativity</li>
+      </ul>
+      <div class="fact-box">
+        Despite these limits, Newtonian mechanics still handles 99.9% of engineering and everyday physics problems just fine.
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span>Classical Mechanics</span> — An Educational Resource | Built by Tioluwalope Adesuyan
+  </footer>
+</div>
+
+<div id="page-relativity" class="page">
+<div class="hero">
+    <h2>Theory of Relativity</h2>
+    <p>Einstein's revolutionary framework — rewriting our understanding of space, time, and gravity.</p>
+  </div>
+
+  <div class="content">
+
+    <div class="card">
+      <h2>Albert Einstein (1879–1955)</h2>
+      <p>Albert Einstein transformed physics not once but twice. In 1905 — his famous "miracle year" — Special Relativity overturned centuries of assumptions about space and time. Then in 1915, General Relativity replaced Newton's theory of gravity with something far stranger and more beautiful: a picture of gravity not as a force at all, but as the curvature of spacetime itself.</p>
+      <div class="fact-box">"Imagination is more important than knowledge. For knowledge is limited, whereas imagination embraces the entire world." — Albert Einstein</div>
+    </div>
+
+    <div class="card">
+      <h2>Special Relativity (1905)</h2>
+      <p>Special Relativity starts from just two postulates — but their consequences are world-altering:</p>
+      <ul>
+        <li><strong>The laws of physics are the same</strong> for all observers moving at constant velocity (inertial frames).</li>
+        <li><strong>The speed of light c is constant</strong> for all observers, no matter how fast the source is moving.</li>
+      </ul>
+      <h3>What Falls Out of These Two Ideas</h3>
+      <ul>
+        <li><strong>Time Dilation:</strong> Moving clocks run slow. The faster you move, the more time slows down for you relative to a stationary observer.</li>
+        <li><strong>Length Contraction:</strong> Objects moving at high speed appear shorter along their direction of travel.</li>
+        <li><strong>Relativity of Simultaneity:</strong> Two events that happen at the same time for one observer can happen at different times for another.</li>
+        <li><strong>Mass-Energy Equivalence:</strong> Mass and energy are two faces of the same thing.</li>
+      </ul>
+      <div class="equation">E = mc²</div>
+      <div class="equation">γ = 1 / √(1 − v²/c²)</div>
+      <p>The Lorentz factor γ quantifies all of these effects. At everyday speeds γ ≈ 1 and Newtonian mechanics is perfectly adequate. As v approaches c, γ shoots toward infinity — which is why nothing with mass can ever reach the speed of light.</p>
+    </div>
+
+    <div class="card">
+      <h2>General Relativity (1915)</h2>
+      <p>General Relativity extends special relativity to include gravity and acceleration. The central — and startling — insight is this: <strong>gravity is not a force</strong>. It's the curvature of spacetime caused by mass and energy. Objects don't fall because they're pulled; they follow the straightest possible paths (geodesics) through curved spacetime, and those paths curve toward massive objects.</p>
+      <h3>Einstein Field Equations</h3>
+      <div class="equation">Gμν + Λgμν = (8πG/c⁴) Tμν</div>
+      <ul>
+        <li><strong>Gμν</strong> — the Einstein tensor, which describes how spacetime is curved</li>
+        <li><strong>Λ</strong> — the cosmological constant, associated with dark energy</li>
+        <li><strong>gμν</strong> — the metric tensor, describing the geometry of spacetime</li>
+        <li><strong>Tμν</strong> — the stress-energy tensor, encoding the matter and energy content</li>
+      </ul>
+      <div class="fact-box">John Wheeler's famous one-liner: "Spacetime tells matter how to move; matter tells spacetime how to curve."</div>
+    </div>
+
+    <div class="card">
+      <h2>Predictions and Confirmations</h2>
+      <ul>
+        <li><strong>Gravitational lensing:</strong> Light bends around massive objects — confirmed spectacularly during the 1919 solar eclipse.</li>
+        <li><strong>Gravitational time dilation:</strong> Clocks run slower in stronger gravitational fields. Every GPS satellite has to correct for this or navigation would drift by kilometres per day.</li>
+        <li><strong>Black holes:</strong> Regions where gravity is so extreme nothing escapes — first directly imaged by the Event Horizon Telescope in 2019.</li>
+        <li><strong>Gravitational waves:</strong> Ripples in spacetime itself, produced by colliding black holes — first detected by LIGO in 2015.</li>
+        <li><strong>Expansion of the universe:</strong> General Relativity predicted an expanding cosmos before Hubble observed it.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Where Relativity Meets Its Limits</h2>
+      <p>General Relativity is breathtakingly accurate — but it breaks down at singularities, those points of theoretically infinite density found at the centre of black holes and at the Big Bang. At those scales, quantum effects can't be ignored. Reconciling General Relativity with Quantum Mechanics is the single hardest open problem in theoretical physics today.</p>
+      <div class="fact-box">This unification problem directly motivates research into String Theory, Loop Quantum Gravity, and frameworks like the Unified Network Action.</div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span>Classical Mechanics</span> — An Educational Resource | Built by Tioluwalope Adesuyan
+  </footer>
+</div>
+
+<div id="page-quantum" class="page">
+<div class="hero">
+    <h2>Quantum Mechanics</h2>
+    <p>The physics of the very small — where particles behave like waves, and certainty gives way to probability.</p>
+  </div>
+
+  <div class="content">
+
+    <div class="card">
+      <h2>The Quantum Revolution</h2>
+      <p>In the early 20th century, experiments kept producing results that classical physics had no business explaining. Light behaved like particles. Electrons behaved like waves. Energy didn't flow continuously — it came in discrete chunks called <strong>quanta</strong>. By the 1920s, a generation of brilliant physicists — Bohr, Heisenberg, Schrödinger, Dirac, and others — had built a whole new framework to handle this strange microscopic world. It's deeply counterintuitive, but it works with extraordinary precision.</p>
+      <div class="fact-box">"Anyone who is not shocked by quantum theory has not understood it." — Niels Bohr</div>
+    </div>
+
+    <div class="card">
+      <h2>The Schrödinger Equation</h2>
+      <p>At the centre of quantum mechanics is the Schrödinger equation, which describes how the quantum state of a system — encoded in the <strong>wave function ψ</strong> — evolves over time:</p>
+      <div class="equation">iℏ ∂ψ/∂t = Ĥψ</div>
+      <p>The wave function ψ is not something you can directly observe. What you can extract from it is the <strong>probability density</strong> |ψ|² — the likelihood of finding a particle at any given location if you look. It's a probability map, not a trajectory.</p>
+      <h3>The Time-Independent Form</h3>
+      <div class="equation">Ĥψ = Eψ</div>
+      <p>This eigenvalue equation gives the allowed energy levels of a quantum system. Applying it to the hydrogen atom predicts exactly the spectral lines that experimenters had been puzzling over for decades.</p>
+    </div>
+
+    <div class="card">
+      <h2>Core Principles</h2>
+      <h3>Wave-Particle Duality</h3>
+      <p>Every quantum object — electron, photon, even whole atoms — exhibits both wave and particle properties depending on how you probe it. Fire electrons one at a time through two slits and they still build up an interference pattern on the screen behind, as if each electron somehow went through both slits at once.</p>
+
+      <h3>Heisenberg's Uncertainty Principle</h3>
+      <p>There is a hard limit on how precisely you can simultaneously know a particle's position and its momentum — not because of measurement clumsiness, but because of the fundamental nature of reality:</p>
+      <div class="equation">Δx · Δp ≥ ℏ/2</div>
+      <p>The more precisely you pin down where something is, the less defined its momentum becomes, and vice versa.</p>
+
+      <h3>Superposition</h3>
+      <p>Until measured, a quantum system genuinely exists in a combination of multiple states at once. It's only when you interact with it — make a measurement — that it "picks" a definite outcome. This isn't ignorance on our part; the indeterminacy is real.</p>
+
+      <h3>Quantum Entanglement</h3>
+      <p>Two particles can become entangled so that measuring one instantly determines something about the other, no matter how far apart they are. Einstein found this deeply uncomfortable — he called it "spooky action at a distance" — but experiment after experiment has confirmed it's real.</p>
+    </div>
+
+    <div class="card">
+      <h2>Key Results</h2>
+      <ul>
+        <li><strong>Quantised energy levels:</strong> Electrons in atoms can only sit at specific discrete energies — which is why atoms absorb and emit light at characteristic colours.</li>
+        <li><strong>Photoelectric effect:</strong> Light ejects electrons from metals only above a threshold frequency, regardless of intensity — explained by Einstein using photons, and it won him the Nobel Prize.</li>
+        <li><strong>Spin:</strong> Particles have an intrinsic angular momentum that has no classical equivalent.</li>
+        <li><strong>Pauli Exclusion Principle:</strong> No two identical fermions can share the same quantum state — this is ultimately why matter is solid and why the periodic table has the structure it does.</li>
+        <li><strong>Quantum tunnelling:</strong> Particles can pass through energy barriers they classically couldn't cross — this powers nuclear fusion in stars and makes transistors work.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Interpretations</h2>
+      <p>The mathematics is clear. What it all means is still genuinely debated:</p>
+      <ul>
+        <li><strong>Copenhagen interpretation:</strong> The wave function is a calculational tool; only measurement results are physically real. Don't ask what happens before you look.</li>
+        <li><strong>Many-Worlds interpretation:</strong> Every quantum measurement causes the universe to branch into parallel versions — one for each possible outcome.</li>
+        <li><strong>Pilot Wave theory:</strong> Particles have definite positions at all times, guided by a real underlying wave field.</li>
+        <li><strong>Relational QM:</strong> Quantum states are defined relative to observers, not in any absolute sense.</li>
+      </ul>
+      <div class="fact-box">Despite all the interpretational debate, quantum mechanics is the most precisely tested theory in the history of science — accurate to 1 part in 10 billion.</div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span>Classical Mechanics</span> — An Educational Resource | Built by Tioluwalope Adesuyan
+  </footer>
+</div>
+
+<div id="page-qft" class="page">
+<div class="hero">
+    <h2>Quantum Field Theory</h2>
+    <p>The marriage of quantum mechanics and special relativity — the language of particles and forces.</p>
+  </div>
+
+  <div class="content">
+
+    <div class="card">
+      <h2>What is QFT?</h2>
+      <p>Quantum Field Theory is what you get when you push quantum mechanics hard enough to be consistent with special relativity. The key conceptual shift: particles aren't fundamental objects. Instead, the universe is filled with <strong>quantum fields</strong> — one for each type of particle — and what we call an electron or a photon is really just a small ripple, or excitation, in the corresponding field.</p>
+      <p>QFT is the foundation of the <strong>Standard Model of particle physics</strong>, which currently stands as the most successful scientific theory ever constructed — describing three of the four fundamental forces and every known elementary particle with extraordinary precision.</p>
+      <div class="fact-box">"The career of a young theoretical physicist consists of treating the harmonic oscillator in ever-increasing levels of abstraction." — Sidney Coleman</div>
+    </div>
+
+    <div class="card">
+      <h2>The Standard Model Lagrangian</h2>
+      <p>The entire Standard Model can be compressed into a single Lagrangian density — one compact expression that encodes the behaviour of all known particles and forces. It breaks into four sectors:</p>
+      <div class="equation">ℒ_SM = ℒ_gauge + ℒ_fermion + ℒ_Higgs + ℒ_Yukawa</div>
+      <ul>
+        <li><strong>ℒ_gauge</strong> — the kinetic terms for gauge bosons: −¼FμνFμν for each of the forces</li>
+        <li><strong>ℒ_fermion</strong> — how fermions (quarks and leptons) move and interact: ψ̄(iγμDμ)ψ</li>
+        <li><strong>ℒ_Higgs</strong> — the Higgs field and the spontaneous symmetry breaking that gives particles mass</li>
+        <li><strong>ℒ_Yukawa</strong> — the coupling between the Higgs and fermions that determines how much mass each particle acquires</li>
+      </ul>
+      <div class="equation">ℒ = −¼FμνFμν + ψ̄iγμDμψ + |Dμφ|² − V(φ)</div>
+    </div>
+
+    <div class="card">
+      <h2>The Standard Model Particles</h2>
+      <div class="scientist-grid">
+        <div class="scientist-card">
+          <div class="name">Quarks (6)</div>
+          <p>Up, down, charm, strange, top, bottom. They never appear alone — they're always bound into protons, neutrons, or other hadrons by the strong force.</p>
+        </div>
+        <div class="scientist-card">
+          <div class="name">Leptons (6)</div>
+          <p>Electron, muon, tau, and their three neutrinos. The electron is the lightest and most familiar — it's responsible for all of chemistry.</p>
+        </div>
+        <div class="scientist-card">
+          <div class="name">Gauge Bosons</div>
+          <p>The force carriers: the photon (electromagnetism), W & Z bosons (weak force), and gluons (strong force).</p>
+        </div>
+        <div class="scientist-card">
+          <div class="name">Higgs Boson</div>
+          <p>Predicted in 1964, finally detected at CERN in 2012. The quantum of the Higgs field — interacting with it is how particles acquire mass.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Key Concepts</h2>
+      <h3>Renormalisation</h3>
+      <p>When you compute quantum corrections in QFT, you run into infinities. Renormalisation is the systematic procedure for absorbing these infinities into physical parameters — things you measure rather than calculate. It sounds like a mathematical trick, but it's the breakthrough that made QFT truly predictive rather than just formally correct.</p>
+
+      <h3>Feynman Diagrams</h3>
+      <p>Richard Feynman invented a beautiful graphical notation for the terms in a perturbative expansion of quantum amplitudes. Each diagram looks like a picture of particles scattering, but it's really a shorthand for a precise mathematical expression. Particles are lines; interactions are vertices where lines meet.</p>
+
+      <h3>Gauge Symmetry</h3>
+      <p>The forces of the Standard Model aren't just described by QFT — they <em>emerge</em> from demanding that the Lagrangian remain invariant under local symmetry transformations. That deep connection between symmetry and force is perhaps the most profound discovery in modern physics.</p>
+      <div class="equation">SU(3) × SU(2) × U(1)</div>
+      <p>This gauge symmetry group encodes the strong force, weak force, and electromagnetism respectively.</p>
+    </div>
+
+    <div class="card">
+      <h2>Where QFT Falls Short</h2>
+      <p>For all its success, QFT as currently formulated has a significant gap: it can't incorporate gravity. Attempts to quantise General Relativity using standard QFT methods produce non-renormalisable infinities — the theory breaks down completely at the Planck scale (~10⁻³⁵ m), where quantum and gravitational effects are both important.</p>
+      <ul>
+        <li>The Standard Model has around 19 free parameters with no deeper explanation for their values.</li>
+        <li>Dark matter and dark energy have no place in the Standard Model.</li>
+        <li>Gravity can't be consistently included in the standard framework.</li>
+      </ul>
+      <div class="fact-box">These gaps are what motivate String Theory, Loop Quantum Gravity, and approaches like the Unified Network Action explored in the Research section.</div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span>Classical Mechanics</span> — An Educational Resource | Built by Tioluwalope Adesuyan
+  </footer>
+</div>
+
+<div id="page-string" class="page">
+<div class="hero">
+    <h2>String Theory</h2>
+    <p>A bold attempt to unify all forces and particles — replacing point particles with vibrating one-dimensional strings.</p>
+  </div>
+
+  <div class="content">
+
+    <div class="card">
+      <h2>The Core Idea</h2>
+      <p>String theory proposes that the fundamental constituents of the universe aren't the point-like particles of the Standard Model, but tiny one-dimensional vibrating strings of energy — far smaller than anything we can currently probe, operating at the Planck scale (~10⁻³⁵ m). The key insight is that different vibrational modes of these strings produce different particles. An electron, a quark, a photon, and — crucially — the <strong>graviton</strong> (the hypothetical quantum of gravity) all emerge naturally from the same strings vibrating in different ways.</p>
+      <div class="fact-box">"String theory is an attempt to unite gravity with the other forces of nature." — Edward Witten</div>
+    </div>
+
+    <div class="card">
+      <h2>Why String Theory?</h2>
+      <p>String theory was motivated by two specific, concrete problems that nobody else had a satisfying solution to:</p>
+      <ul>
+        <li><strong>Quantum gravity:</strong> GR and QFT are mathematically incompatible. String theory automatically contains a massless spin-2 particle — the graviton — which means gravity comes built in, not bolted on.</li>
+        <li><strong>Ultraviolet divergences:</strong> Point particles in QFT produce loop integrals that blow up to infinity. Extended strings smear interactions out over a finite length, which naturally softens and eliminates these infinities.</li>
+      </ul>
+      <div class="equation">S_Polyakov = −(T/2) ∫ d²σ √−h · hᵃᵇ ∂ₐXμ ∂ᵦXμ</div>
+      <p>The Polyakov action governs how a string propagates — rather than tracing out a one-dimensional worldline through spacetime (as a point particle does), a string sweeps out a two-dimensional surface called a <strong>worldsheet</strong>.</p>
+    </div>
+
+    <div class="card">
+      <h2>Extra Dimensions</h2>
+      <p>Here's where things get strange. For string theory to be mathematically consistent, spacetime has to have more dimensions than the four we experience:</p>
+      <ul>
+        <li><strong>Bosonic string theory:</strong> 26 spacetime dimensions</li>
+        <li><strong>Superstring theory:</strong> 10 spacetime dimensions</li>
+        <li><strong>M-theory:</strong> 11 spacetime dimensions</li>
+      </ul>
+      <p>The extra dimensions are thought to be <strong>compactified</strong> — curled up into tiny geometric shapes (Calabi-Yau manifolds) so small they're invisible at any current experiment. The specific shape of these hidden dimensions would determine the particle physics we observe — which is an intriguing idea, but one that's proven very difficult to test.</p>
+    </div>
+
+    <div class="card">
+      <h2>The Five String Theories and M-Theory</h2>
+      <p>By the 1980s, physicists had discovered five distinct, consistent superstring theories — which was slightly embarrassing if you were hoping for a single unified theory. In 1995, Edward Witten showed all five were actually different limiting cases of a single 11-dimensional framework: <strong>M-theory</strong>. They're connected by mathematical dualities — transformations that translate one theory into another.</p>
+      <div class="scientist-grid">
+        <div class="scientist-card"><div class="name">Type I</div><p>Open and closed strings; gauge group SO(32)</p></div>
+        <div class="scientist-card"><div class="name">Type IIA</div><p>Closed strings, non-chiral</p></div>
+        <div class="scientist-card"><div class="name">Type IIB</div><p>Closed strings, chiral</p></div>
+        <div class="scientist-card"><div class="name">Heterotic SO(32)</div><p>Closed strings, mixed left/right movers</p></div>
+        <div class="scientist-card"><div class="name">Heterotic E₈×E₈</div><p>Long regarded as the most promising for realistic particle physics</p></div>
+        <div class="scientist-card"><div class="name">M-Theory</div><p>The 11-dimensional framework unifying all five theories</p></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>AdS/CFT Correspondence</h2>
+      <p>Even setting aside the question of whether string theory describes our universe, it produced one of the most striking theoretical results of recent decades: the <strong>AdS/CFT correspondence</strong> (Maldacena, 1997). It's a precise duality between:</p>
+      <ul>
+        <li>A <strong>gravitational theory</strong> in Anti-de Sitter (AdS) space</li>
+        <li>A <strong>conformal field theory (CFT)</strong> living on the lower-dimensional boundary of that space</li>
+      </ul>
+      <p>This "holographic" relationship has turned out to be a powerful tool even for physicists who are sceptical of string theory as a fundamental description of nature — it's been applied to condensed matter physics, black hole thermodynamics, and the study of quark-gluon plasma.</p>
+    </div>
+
+    <div class="card">
+      <h2>Open Questions and Criticisms</h2>
+      <ul>
+        <li><strong>No experimental predictions yet:</strong> The Planck scale is around 15 orders of magnitude beyond the reach of current particle accelerators.</li>
+        <li><strong>The landscape problem:</strong> There are roughly 10⁵⁰⁰ possible string vacua — each giving a different set of physical laws. Which one is ours, and why?</li>
+        <li><strong>Incomplete framework:</strong> M-theory is not yet fully formulated — we know it exists and some of its limits, but not the full theory.</li>
+      </ul>
+      <div class="fact-box">Alternative approaches to quantum gravity — including Loop Quantum Gravity and non-commutative geometry frameworks like the Unified Network Action — offer different routes to the same problem.</div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span>Classical Mechanics</span> — An Educational Resource | Built by Tioluwalope Adesuyan
+  </footer>
+</div>
+
+<div id="page-research" class="page">
+<div class="research-hero">
+    <h2>The Unified Network Action</h2>
+    <div class="subtitle">A Dynamic Non-Commutative Framework for Ghost-Free Quantum Gravity and Chiral Regularisation</div>
+    <div class="author-badge">✦ Tioluwalope Daniel Adesuyan &nbsp;·&nbsp; Independent Researcher &nbsp;·&nbsp; 2025</div>
+  </div>
+
+  <div class="content">
+
+    <div class="card">
+      <h2>Abstract</h2>
+      <div class="abstract-box">
+        This paper presents a unified framework for quantum gravity based on a dynamic non-commutative spacetime geometry. By treating spacetime as a fluid-like network of quantum nodes with a dynamical non-commutativity parameter θ<sup>μν</sup>(x), we construct a master action that is ultraviolet-complete and ghost-free. The framework naturally incorporates chiral fermions without the fermion doubling problem, reduces to standard QFT and General Relativity at low energies, and resolves the incompatibility between quantum mechanics and gravity without introducing a rigid lattice structure.
+      </div>
+      <div>
+        <span class="contribution-tag">Quantum Gravity</span>
+        <span class="contribution-tag">Non-Commutative Geometry</span>
+        <span class="contribution-tag">Lattice Field Theory</span>
+        <span class="contribution-tag">Chiral Fermions</span>
+        <span class="contribution-tag">UV Completeness</span>
+        <span class="contribution-tag">Ghost-Free</span>
+        <span class="contribution-tag">Star-Product</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>I. The Core Problem</h2>
+      <p>General Relativity and Quantum Field Theory are the two most successful theories in physics — but they are fundamentally incompatible. GR treats spacetime as a smooth, continuous manifold. QFT operates on a fixed flat background. When you attempt to quantise gravity, the theory produces <strong>non-renormalisable ultraviolet divergences</strong> — infinite answers that no known technique can control.</p>
+      <p>Existing approaches each carry serious problems:</p>
+      <ul>
+        <li><strong>String Theory:</strong> Requires extra dimensions; lacks direct experimental predictions.</li>
+        <li><strong>Loop Quantum Gravity:</strong> Difficulty recovering a smooth spacetime continuum at low energies.</li>
+        <li><strong>Rigid lattice QFT:</strong> Breaks Lorentz invariance and introduces <strong>fermion doubling</strong> — spurious unphysical mirror particles.</li>
+      </ul>
+      <div class="fact-box">The Unified Network Action sidesteps all of these by making the non-commutativity itself a <em>dynamic physical field</em> — not a fixed background constant.</div>
+    </div>
+
+    <div class="section-divider">Section II — The Master Action</div>
+    <div class="card">
+      <h2>II. The Master Action S<sub>UNA</sub></h2>
+      <p>The central object of the framework is the <strong>Master Action</strong>. Spacetime is treated as a dynamic network of quantum nodes. The non-commutativity parameter θ<sup>μν</sup>(x) is promoted to a full dynamical field — it fluctuates, carries energy, and responds to matter:</p>
+
+      <div class="paper-equation">
+        S = ∫ d⁴x★ [ ½ Tr(Φ □ e<sup>−□/M²_P</sup> Φ) − g/4 · F²★ ]<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;+ S<sub>GW</sub>[ψ, D★]<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;+ 1/(2κ²) ∫ d⁴x ∂ρθ<sup>μν</sup>(x) ∂<sup>ρ</sup>θ<sub>μν</sub>(x)
+      </div>
+
+      <p>The three terms each govern a different sector:</p>
+      <ul>
+        <li><strong>First line:</strong> The scalar field Φ with an infinite-derivative kinetic operator □e<sup>−□/M²_P</sup>, plus the star-product gauge field term — the UV-regulated bosonic sector.</li>
+        <li><strong>S<sub>GW</sub>[ψ, D★]:</strong> The Ginsparg-Wilson fermion action — governing chiral matter without fermion doubling.</li>
+        <li><strong>Third line:</strong> The kinetic term for θ<sup>μν</sup>(x) itself — the non-commutativity field propagates dynamically with gravitational coupling κ².</li>
+      </ul>
+      <p>The key parameters:</p>
+      <ul>
+        <li><strong>M<sub>P</sub></strong> — the fundamental Planck mass scale</li>
+        <li><strong>g</strong> — the running gauge coupling constant</li>
+        <li><strong>κ²</strong> — the gravitational coupling for the dynamic coordinate landscape</li>
+        <li><strong>d⁴x★</strong> — the non-commutative spacetime measure</li>
+      </ul>
+    </div>
+
+    <div class="section-divider">Section III — Physical Mechanisms and Regularisation</div>
+
+    <div class="card">
+      <h2>III.A — Ghost-Free Planck-Scale Cutoff</h2>
+      <p>The structural field Φ is governed by an <strong>infinite-derivative kinetic operator</strong> □e<sup>−□/M²_P</sup>. Because the exponential of an entire function has no zeroes in the complex plane, it introduces no new poles into the propagator. The theory remains <strong>entirely free of unphysical ghost states</strong> while executing an exponential suppression of high-momentum modes:</p>
+
+      <div class="paper-equation">Π(k²) ~ e<sup>−k²/M²_P</sup> / k²</div>
+
+      <p>As momentum k approaches M<sub>P</sub>, the probability amplitude dampens to zero. Physical singularities like zero-width black holes are smoothed out by a natural UV cutoff — no ghosts introduced, because the exponential factor never vanishes and therefore never creates new poles in the propagator.</p>
+
+      <div class="fact-box">This is a fundamentally different strategy from dimensional regularisation or Pauli-Villars: the suppression is physical, not a mathematical trick.</div>
+    </div>
+
+    <div class="card">
+      <h2>III.B — Dynamic Non-Commutativity and Spatial Fuzziness</h2>
+      <p>The coordinates of space do not commute; their relations are governed by the field θ<sup>μν</sup>(x):</p>
+      <div class="paper-equation">[x<sup>μ</sup>, x<sup>ν</sup>] = iθ<sup>μν</sup>(x)</div>
+
+      <p>To multiply fields in this non-commutative space, we use the <strong>Moyal star-product</strong>:</p>
+
+      <div class="paper-equation">
+        (f ★ g)(x) = exp( i/2 · θ<sup>μν</sup>(x) · ∂/∂y<sup>μ</sup> · ∂/∂z<sup>ν</sup> ) f(y)g(z) |<sub>y=z=x</sub>
+      </div>
+
+      <p>Rather than treating θ<sup>μν</sup> as a rigid background constant, the action gives it its own kinetic term ∂<sub>ρ</sub>θ<sup>μν</sup>∂<sup>ρ</sup>θ<sub>μν</sub>. This lets the non-commutativity of space <strong>fluctuate as a dynamic physical field</strong>. In regions of low energy density where θ → 0, spacetime returns to a smooth standard continuum.</p>
+    </div>
+
+    <div class="section-divider">Section III.C — Resolution of the Fermion Doubling Problem</div>
+    <div class="card">
+      <h2>III.C — Fermion Doubling Solution</h2>
+      <p>On a discrete lattice grid, the <strong>Nielsen-Ninomiya No-Go theorem</strong> dictates that 2<sup>d</sup> − 1 unphysical "mirror duplicate" particles must appear for every real fermion. The Unified Network Action bypasses this entirely using the <strong>Ginsparg-Wilson Chiral Action</strong> S<sub>GW</sub>[ψ, D★], where the Dirac operator satisfies:</p>
+
+      <div class="paper-equation">γ₅D★ + D★γ₅ = a · D★γ₅D★</div>
+
+      <p>Here <em>a</em> acts as the effective non-commutative pixel spacing. This algebraic relationship modifies the definition of chiral symmetry at the Planck scale, systematically shielding the spectrum from unphysical duplications and leaving <strong>exactly one stable, physical generation of matter</strong>.</p>
+    </div>
+
+    <div class="section-divider">Section IV — The Emergent Macro-Universe</div>
+    <div class="card">
+      <h2>IV. Recovery of Standard Physics</h2>
+      <p>A critical test of any quantum gravity framework: it has to reproduce all known physics at human and astronomical scales. In the macroscopic limit where M<sub>P</sub> → ∞ and θ<sup>μν</sup> → 0, the non-local exponential factors converge to unity and the star-product simplifies to standard multiplication. The action cleanly sheds its ultra-microscopic features and reduces to:</p>
+
+      <div class="paper-equation">
+        S<sub>classical</sub> = ∫ d⁴x [ ½ Tr(Φ□Φ) − ¼ F<sub>μν</sub>F<sup>μν</sup> + ψ̄ iγ<sup>μ</sup>D<sub>μ</sub>ψ ]
+      </div>
+
+      <p>This is precisely the action of <strong>standard Quantum Field Theory combined with General Relativity</strong>. All known physics is recovered exactly at observed scales. The ultra-microscopic non-commutative structure is completely invisible at low energies — which is entirely consistent with the absence of any Planck-scale signatures in current experiments.</p>
+
+      <div class="fact-box">This mathematically guarantees the model is consistent with all known quantum field theories and general relativity at observed human and astronomical scales.</div>
+    </div>
+
+    <div class="card">
+      <h2>V. Summary of Key Results</h2>
+      <ul>
+        <li><strong>UV completeness:</strong> Infinite-derivative operators exponentially suppress Planck-scale divergences without lattice artefacts.</li>
+        <li><strong>Ghost-free spectrum:</strong> The exponential kinetic operator introduces no new poles — zero ghost instabilities.</li>
+        <li><strong>Chiral fermions:</strong> Ginsparg-Wilson implementation leaves exactly one physical fermion generation per species.</li>
+        <li><strong>Dynamic spacetime fuzziness:</strong> θ<sup>μν</sup>(x) fluctuates physically — spacetime is smooth at low energies, fundamentally non-commutative near the Planck scale.</li>
+        <li><strong>Lorentz invariance preserved:</strong> Unlike rigid lattice approaches, dynamic non-commutativity restores Lorentz symmetry in the continuum limit.</li>
+        <li><strong>Full GR + QFT recovery:</strong> Standard Einstein gravity and the full QFT Lagrangian are recovered exactly as θ<sup>μν</sup> → 0.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>VI. Future Directions</h2>
+      <ul>
+        <li>Tracking exact cosmological solutions of the θ<sup>μν</sup>(x) field during early inflation.</li>
+        <li>Computing quantum corrections to the θ<sup>μν</sup> propagator and verifying UV finiteness at loop level.</li>
+        <li>Exploring phenomenological signatures — possible deviations from standard GR at near-Planck scales.</li>
+        <li>Connecting the non-commutative network structure to entanglement entropy and black hole information loss.</li>
+        <li>Extending the framework to cosmological solutions and inflationary dynamics.</li>
+      </ul>
+      <div class="fact-box">This work is submitted to <em>Physical Review D</em> — the premier journal for high-energy and gravitational physics.</div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span>Classical Mechanics</span> — An Educational Resource | Built by Tioluwalope Adesuyan
+  </footer>
+</div>
+
+<div id="page-secret" class="page">
+<canvas id="particle-canvas"></canvas>
+
+  <!-- Konami easter egg overlay -->
+  <div id="konami-overlay">
+    <h2>🎉 CHEAT CODE ACTIVATED 🎉</h2>
+    <p>You found the Konami code. There's no reward except the knowledge that you tried ↑ ↑ ↓ ↓ ← → ← → B A and it actually worked.</p>
+    <button id="konami-close">OK I'll take it</button>
+  </div>
+
+  <div class="secret-container">
+
+    <div class="wave-title" id="main-title" aria-label="Why are you here?"></div>
+    <p class="subtitle-secret">You weren't supposed to find this.<span class="cursor"></span></p>
+
+    <div class="secret-card">
+      <p>Seriously. The logo was just a logo. You clicked it anyway.</p>
+      <p>That says something about you. Something <span class="highlight">curious</span>. Possibly something <span class="purple">reckless</span>.</p>
+      <p>In physics, this is called a <span class="highlight">boundary condition violation</span> — you pushed past the edge of the defined system and ended up somewhere the equations weren't written to describe.</p>
+      <p>Congratulations. <span class="purple">You're the Planck-scale singularity of this website.</span></p>
+    </div>
+
+    <div class="secret-card">
+      <p>While you're here — a secret:</p>
+      <p>The Hamiltonian doesn't care where you start. Only which direction you're pointing in phase space.</p>
+      <p class="morse-line" id="morse-display">· · ·</p>
+      <p style="font-size:12px; color:#446677;">↑ That's Morse code. It says something. You'll have to decode it yourself.</p>
+    </div>
+
+    <a href="index.html" class="back-btn">← Return to the known universe</a>
+    <div id="visit-counter">You are visitor #<span id="visit-num">?</span> to this page.</div>
+    <div class="konami-hint">psst: ↑ ↑ ↓ ↓ ← → ← → B A</div>
+
+  </div>
+
+  <script>
+    // ==========================================
+    // 1. PARTICLE / STAR FIELD CANVAS
+    // ==========================================
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let particles = [];
+    const PARTICLE_COUNT = 120;
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    function randomParticle() {
+      return {
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.5 + 0.3,
+        vx: (Math.random() - 0.5) * 0.3,
+        vy: (Math.random() - 0.5) * 0.3,
+        alpha: Math.random() * 0.6 + 0.2,
+        color: Math.random() > 0.7 ? '#aa44ff' : '#00c6ff',
+      };
+    }
+
+    for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(randomParticle());
+
+    function drawParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw connection lines between nearby particles
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 100) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(0,198,255,${0.06 * (1 - dist / 100)})`;
+            ctx.lineWidth = 0.5;
+            ctx.stroke();
+          }
+        }
+      }
+
+      particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = p.color.replace(')', `, ${p.alpha})`).replace('rgb', 'rgba').replace('#', 'rgba(') ;
+        // simpler:
+        ctx.globalAlpha = p.alpha;
+        ctx.fillStyle = p.color;
+        ctx.fill();
+        ctx.globalAlpha = 1;
+
+        p.x += p.vx;
+        p.y += p.vy;
+
+        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+      });
+
+      requestAnimationFrame(drawParticles);
+    }
+    drawParticles();
+
+    // ==========================================
+    // 2. COMBINED WAVE ANIMATION ON TITLE
+    // Transverse  → Y displacement  (like a rope wave — perpendicular to travel)
+    // Longitudinal → X displacement (like a sound wave — parallel to travel)
+    // Both sine waves same frequency, cosine offset by 90° for longitudinal
+    // ==========================================
+    const titleEl = document.getElementById('main-title');
+    const titleText = 'Why are you here?';
+
+    // Build individual letter spans
+    titleText.split('').forEach((ch, i) => {
+      const span = document.createElement('span');
+      span.className = 'wave-letter' + (ch === ' ' ? ' space' : '');
+      span.textContent = ch === ' ' ? '\u00A0' : ch;
+      titleEl.appendChild(span);
+    });
+
+    const letters = titleEl.querySelectorAll('.wave-letter');
+
+    // Wave parameters — tune these to taste
+    const T_AMP   = 20;     // px — transverse (vertical) amplitude
+    const L_AMP   = 12;     // px — longitudinal (horizontal) amplitude
+    const K       = 0.52;   // spatial wavenumber (radians per letter index)
+    const SPEED   = 0.0024; // wave propagation speed multiplier
+
+    function animateWave(ts) {
+      const t = ts * SPEED;
+      letters.forEach((span, i) => {
+        // Transverse: perpendicular to direction of travel — classic sine
+        const transY = T_AMP * Math.sin(K * i - t);
+        // Longitudinal: parallel to direction of travel — cosine (90° ahead in phase)
+        // This creates the compression/rarefaction pattern of a sound wave
+        const longX  = L_AMP * Math.cos(K * i - t);
+
+        span.style.transform = `translateX(${longX.toFixed(2)}px) translateY(${transY.toFixed(2)}px)`;
+
+        // Colour: crest → bright cyan, trough → violet, mid → default blue
+        const phase = Math.sin(K * i - t);
+        if (phase > 0.65) {
+          span.style.color = '#00ffff';
+          span.style.textShadow = '0 0 20px #00ffff, 0 0 40px #00ffff66';
+        } else if (phase < -0.65) {
+          span.style.color = '#cc66ff';
+          span.style.textShadow = '0 0 20px #cc66ff, 0 0 40px #cc66ff66';
+        } else {
+          span.style.color = '#00c6ff';
+          span.style.textShadow = '0 0 14px #00c6ff, 0 0 28px #00c6ff44';
+        }
+      });
+      requestAnimationFrame(animateWave);
+    }
+    requestAnimationFrame(animateWave);
+
+    // ==========================================
+    // 3. MORSE CODE TYPEWRITER
+    // ==========================================
+    // "FIND THE EQUATIONS" in morse
+    const morseMap = {
+      'F':'..-.', 'I':'..', 'N':'-.', 'D':'-..', ' ': '/', 'T':'-',
+      'H':'....', 'E':'.', 'Q':'--.-', 'U':'..-', 'A':'.-', 'O':'---',
+      'S':'...', 'I':'..', 'N':'-.', 'G':'--.', 'S':'...'
+    };
+    const secretMsg = "FIND THE EQUATIONS";
+    const morseString = secretMsg.split('').map(c => {
+      if (c === ' ') return '/';
+      const map = {'F':'..-.','I':'..','N':'-.','D':'-..','T':'-','H':'....','E':'.','Q':'--.-','U':'..-','A':'.-','O':'---','S':'...','G':'--.','N':'-.','S':'...'};
+      return map[c] || '?';
+    }).join(' ');
+
+    const morseEl = document.getElementById('morse-display');
+    let morseIdx = 0;
+    let morseText = '';
+
+    function typeMorse() {
+      if (morseIdx < morseString.length) {
+        morseText += morseString[morseIdx];
+        morseEl.textContent = morseText;
+        morseIdx++;
+        setTimeout(typeMorse, morseString[morseIdx - 1] === ' ' ? 80 : 120);
+      }
+    }
+    setTimeout(typeMorse, 2000);
+
+    // ==========================================
+    // 4. FLOATING EQUATIONS
+    // ==========================================
+    const equations = [
+      'E = mc²', 'F = ma', 'ΔxΔp ≥ ℏ/2', 'H = T + V',
+      'iℏ∂ψ/∂t = Ĥψ', 'S = ∫L dt', 'Gμν = 8πGTμν',
+      '∇·E = ρ/ε₀', 'e^(iπ) + 1 = 0', 'L = T − V',
+      '[x,p] = iℏ', 'θ^μν(x)', 'Π(k²) ~ e^(−k²/M²_P)'
+    ];
+
+    function spawnEq() {
+      const el = document.createElement('div');
+      el.className = 'floating-eq';
+      el.textContent = equations[Math.floor(Math.random() * equations.length)];
+      el.style.left = Math.random() * 95 + 'vw';
+      el.style.top = '100vh';
+      el.style.animationDuration = (12 + Math.random() * 10) + 's';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 22000);
+    }
+
+    setInterval(spawnEq, 2500);
+    setTimeout(spawnEq, 500);
+
+    // ==========================================
+    // 5. VISIT COUNTER (sessionStorage)
+    // ==========================================
+    let visits = parseInt(sessionStorage.getItem('secret_visits') || '0') + 1;
+    sessionStorage.setItem('secret_visits', visits);
+    document.getElementById('visit-num').textContent = visits;
+
+    // ==========================================
+    // 6. KONAMI CODE EASTER EGG
+    // ==========================================
+    const KONAMI = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
+    let konamiProgress = 0;
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === KONAMI[konamiProgress]) {
+        konamiProgress++;
+        if (konamiProgress === KONAMI.length) {
+          document.getElementById('konami-overlay').classList.add('show');
+          konamiProgress = 0;
+        }
+      } else {
+        konamiProgress = 0;
+      }
+    });
+
+    document.getElementById('konami-close').addEventListener('click', function() {
+      document.getElementById('konami-overlay').classList.remove('show');
+    });
+
+    // ==========================================
+    // 7. CURSOR TRAIL
+    // ==========================================
+    document.addEventListener('mousemove', function(e) {
+      if (Math.random() > 0.7) {
+        const dot = document.createElement('div');
+        dot.style.cssText = `
+          position: fixed;
+          left: ${e.clientX}px;
+          top: ${e.clientY}px;
+          width: 4px; height: 4px;
+          border-radius: 50%;
+          background: #00c6ff;
+          pointer-events: none;
+          z-index: 9999;
+          opacity: 0.8;
+          transform: translate(-50%, -50%);
+          transition: opacity 0.8s ease;
+        `;
+        document.body.appendChild(dot);
+        requestAnimationFrame(() => { dot.style.opacity = '0'; });
+        setTimeout(() => dot.remove(), 800);
+      }
+    });
+
+    // ==========================================
+    // 8. TITLE CLICK — scramble each span then restore
+    // ==========================================
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@#$%^&*?';
+    titleEl.addEventListener('click', function () {
+      let iterations = 0;
+      const interval = setInterval(() => {
+        letters.forEach((span, i) => {
+          const orig = titleText[i];
+          if (orig === ' ') return;
+          if (i < iterations) {
+            span.textContent = orig;
+          } else {
+            span.textContent = chars[Math.floor(Math.random() * chars.length)];
+          }
+        });
+        if (iterations >= letters.length) clearInterval(interval);
+        iterations += 1.5;
+      }, 40);
+    });
+  </script>
+</div>
+
+
+  <footer>
+    <span>Classical Mechanics</span> — An Educational Resource | Built by Tioluwalope Adesuyan
+  </footer>
+
+  <script>
+  const FILE_TO_ID = {"index.html": "index", "hamilton.html": "hamilton", "lagrange.html": "lagrange", "newton.html": "newton", "relativity.html": "relativity", "quantum.html": "quantum", "qft.html": "qft", "string.html": "string", "research.html": "research", "secret.html": "secret"};
+
+  function showPage(nameOrFile) {
+    const id = FILE_TO_ID[nameOrFile] || nameOrFile;
+
+    // Show/hide pages
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const target = document.getElementById('page-' + id);
+    if (target) target.classList.add('active');
+
+    // Nav active state
+    document.querySelectorAll('#main-nav a').forEach(a => a.classList.remove('active'));
+    const navEl = document.querySelector('#main-nav a[data-file="' + id + '.html"]');
+    if (navEl) { navEl.classList.add('active'); navEl.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'}); }
+
+    // Secret page body class
+    if (id === 'secret') {
+      document.body.classList.add('secret-active');
+      setTimeout(bootSecretPage, 60);
+    } else {
+      document.body.classList.remove('secret-active');
+    }
+
+    window.scrollTo(0, 0);
+  }
+
+  // Intercept all href clicks
+  document.addEventListener('click', function(e) {
+    const a = e.target.closest('a[href]');
+    if (!a) return;
+    const href = a.getAttribute('href');
+    if (FILE_TO_ID[href]) { e.preventDefault(); showPage(href); }
+  });
+  </script>
+
+  <script>
+  // nav.js — injects the shared header and nav bar, handles search
+
+(function () {
+  const pages = [
+    { id: 'index',      label: 'Classical Mechanics', file: 'index.html' },
+    { id: 'hamilton',   label: 'Hamiltonian',          file: 'hamilton.html' },
+    { id: 'lagrange',   label: 'Lagrangian',           file: 'lagrange.html' },
+    { id: 'newton',     label: 'Newtonian',            file: 'newton.html' },
+    { id: 'relativity', label: 'Relativity',           file: 'relativity.html' },
+    { id: 'quantum',    label: 'Quantum',              file: 'quantum.html' },
+    { id: 'qft',        label: 'QFT',                  file: 'qft.html' },
+    { id: 'string',     label: 'String Theory',        file: 'string.html' },
+    { id: 'research',   label: '★ Research',           file: 'research.html' },
+  ];
+
+  // Determine current page
+  const currentFile = location.pathname.split('/').pop() || 'index.html';
+
+  // Build header HTML
+  const headerHTML = `
+    <header class="site-header">
+      <img class="logo"
+        src="https://images.squarespace-cdn.com/content/v1/611b0e99ffc7aa45df0df283/cf12fabf-3868-47ba-8de8-ed9608f73e93/Thumbnail.png?format=1000w"
+        alt="Logo"
+        title="You weren't supposed to click that..."
+        onclick="window.location.href='secret.html'">
+      <div class="header-text">
+        <h1>Classical Mechanics</h1>
+        <p>The study of motion, forces, and energy in the macroscopic world</p>
+      </div>
+    </header>`;
+
+  // Build nav links
+  const navLinks = pages.map(p => {
+    const active = (currentFile === p.file || (currentFile === '' && p.file === 'index.html')) ? ' class="active"' : '';
+    return `<a href="${p.file}"${active}>${p.label}</a>`;
+  }).join('');
+
+  const navHTML = `
+    <nav class="topnav" id="main-nav">
+      ${navLinks}
+      <div class="search-wrapper">
+        <span class="search-icon">🔍</span>
+        <input class="search-box" id="search-input" type="text" placeholder="Search topics..." autocomplete="off">
+        <div class="search-results" id="search-results"></div>
+      </div>
+    </nav>`;
+
+  // Inject into page
+  const mount = document.getElementById('nav-mount');
+  if (mount) {
+    mount.innerHTML = headerHTML + navHTML;
+  }
+
+  // ---- SEARCH ----
+  // Page content index
+  const searchIndex = [
+    { page: 'index.html',      title: 'Classical Mechanics',   keywords: 'newton laws motion force mass energy momentum conservation inertia galileo euler' },
+    { page: 'hamilton.html',   title: 'Hamiltonian Mechanics', keywords: 'hamilton phase space canonical equations energy kinetic potential symmetry quantum bridge poisson bracket' },
+    { page: 'lagrange.html',   title: 'Lagrangian Mechanics',  keywords: 'lagrange euler lagrange equation action principle least action generalised coordinates pendulum constraint' },
+    { page: 'newton.html',     title: 'Newtonian Mechanics',   keywords: 'newton laws gravity F=ma acceleration inertia action reaction universal gravitation projectile orbit' },
+    { page: 'relativity.html', title: 'Theory of Relativity',  keywords: 'einstein special general relativity spacetime E=mc2 lorentz time dilation length contraction black hole gravitational waves' },
+    { page: 'quantum.html',    title: 'Quantum Mechanics',     keywords: 'schrodinger heisenberg wave function uncertainty principle superposition entanglement bohr planck quanta spin' },
+    { page: 'qft.html',        title: 'Quantum Field Theory',  keywords: 'QFT standard model lagrangian higgs boson quarks leptons gauge symmetry renormalisation feynman diagrams' },
+    { page: 'string.html',     title: 'String Theory',         keywords: 'string theory extra dimensions M-theory superstring calabi yau ads cft witten compactification graviton' },
+    { page: 'research.html',   title: 'Unified Network Action',keywords: 'UNA non-commutative quantum gravity ghost free chiral fermion moyal star product planck scale Adesuyan' },
+  ];
+
+  function doSearch(query) {
+    const q = query.trim().toLowerCase();
+    const resultsEl = document.getElementById('search-results');
+    if (!resultsEl) return;
+
+    if (!q) {
+      resultsEl.classList.remove('open');
+      resultsEl.innerHTML = '';
+      return;
+    }
+
+    const words = q.split(/\s+/);
+    const scored = searchIndex.map(entry => {
+      const haystack = (entry.title + ' ' + entry.keywords).toLowerCase();
+      const hits = words.filter(w => haystack.includes(w)).length;
+      return { ...entry, hits };
+    }).filter(e => e.hits > 0).sort((a, b) => b.hits - a.hits);
+
+    if (scored.length === 0) {
+      resultsEl.innerHTML = `<div class="search-no-results">No results found for "<strong>${escapeHtml(query)}</strong>"</div>`;
+    } else {
+      resultsEl.innerHTML = scored.map(entry => {
+        // Build a snippet by highlighting the query words in the keywords
+        const snippetSource = entry.keywords;
+        const snippet = highlightSnippet(snippetSource, words);
+        return `<div class="search-result-item" onclick="window.location.href='${entry.page}'">
+          <div class="result-title">${entry.title}</div>
+          <div class="result-snippet">${snippet}</div>
+        </div>`;
+      }).join('');
+    }
+    resultsEl.classList.add('open');
+  }
+
+  function highlightSnippet(text, words) {
+    let safe = escapeHtml(text);
+    words.forEach(w => {
+      if (w.length < 2) return;
+      const re = new RegExp('(' + escapeRegex(w) + ')', 'gi');
+      safe = safe.replace(re, '<mark>$1</mark>');
+    });
+    return safe.slice(0, 120) + (safe.length > 120 ? '…' : '');
+  }
+
+  function escapeHtml(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+  function escapeRegex(str) {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  // Attach events after DOM is ready
+  document.addEventListener('DOMContentLoaded', function () {
+    const input = document.getElementById('search-input');
+    const resultsEl = document.getElementById('search-results');
+    if (!input) return;
+
+    input.addEventListener('input', () => doSearch(input.value));
+
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') {
+        const first = resultsEl.querySelector('.search-result-item');
+        if (first) first.click();
+      }
+      if (e.key === 'Escape') {
+        resultsEl.classList.remove('open');
+        input.blur();
+      }
+    });
+
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.search-wrapper')) {
+        resultsEl.classList.remove('open');
+      }
+    });
+  });
+})();
+
+  </script>
+
+  <script>
+  // Patch nav links for SPA
+  (function patchNav() {
+    const mount = document.getElementById('nav-mount');
+    if (!mount) return;
+    mount.querySelectorAll('a[href]').forEach(a => {
+      const href = a.getAttribute('href');
+      if (FILE_TO_ID[href]) {
+        a.setAttribute('data-file', href);
+        a.removeAttribute('href');
+        a.style.cursor = 'pointer';
+        a.onclick = (e) => { e.preventDefault(); showPage(href); };
+      }
+    });
+    const active = mount.querySelector('a[data-file="index.html"]');
+    if (active) active.classList.add('active');
+  })();
+  </script>
+
+  <script>
+  // ============================================================
+  // SECRET PAGE BOOT
+  // ============================================================
+  let waveAnimId = null;
+  let canvasAnimId = null;
+
+  function bootSecretPage() {
+    bootWave();
+    bootCanvas();
+  }
+
+  // WAVE ANIMATION
+  function bootWave() {
+    const titleEl = document.getElementById('main-title');
+    if (!titleEl) return;
+    titleEl.innerHTML = '';
+    titleEl.dataset.waveBooted = '1';
+
+    'Why are you here?'.split('').forEach(ch => {
+      const span = document.createElement('span');
+      span.className = 'wave-letter' + (ch === ' ' ? ' space' : '');
+      span.textContent = ch === ' ' ? '\u00A0' : ch;
+      titleEl.appendChild(span);
+    });
+
+    const letters = titleEl.querySelectorAll('.wave-letter');
+    const T_AMP = 24, L_AMP = 16, K = 0.50, SPEED = 0.0022;
+
+    if (waveAnimId) cancelAnimationFrame(waveAnimId);
+
+    function animateWave(ts) {
+      if (!document.getElementById('page-secret').classList.contains('active')) return;
+      const t = ts * SPEED;
+      letters.forEach((span, i) => {
+        const transY = T_AMP * Math.sin(K * i - t);
+        const longX  = L_AMP * Math.cos(K * i - t);
+        span.style.transform = `translateX(${longX.toFixed(2)}px) translateY(${transY.toFixed(2)}px)`;
+        const phase = Math.sin(K * i - t);
+        if (phase > 0.6) {
+          span.style.color = '#00ffff';
+          span.style.textShadow = '0 0 24px #00ffff, 0 0 48px #00ffff55';
+        } else if (phase < -0.6) {
+          span.style.color = '#cc66ff';
+          span.style.textShadow = '0 0 24px #cc66ff, 0 0 48px #cc66ff55';
+        } else {
+          span.style.color = '#00c6ff';
+          span.style.textShadow = '0 0 14px #00c6ff, 0 0 28px #00c6ff44';
+        }
+      });
+      waveAnimId = requestAnimationFrame(animateWave);
+    }
+    waveAnimId = requestAnimationFrame(animateWave);
+  }
+
+  // PARTICLE CANVAS
+  function bootCanvas() {
+    const canvas = document.getElementById('particle-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+
+    const COUNT = window.innerWidth < 600 ? 60 : 120;
+    const particles = Array.from({length: COUNT}, () => ({
+      x: Math.random()*canvas.width, y: Math.random()*canvas.height,
+      r: Math.random()*1.5+0.3, vx:(Math.random()-0.5)*0.3, vy:(Math.random()-0.5)*0.3,
+      alpha: Math.random()*0.6+0.2, color: Math.random()>0.7?'#aa44ff':'#00c6ff'
+    }));
+
+    if (canvasAnimId) cancelAnimationFrame(canvasAnimId);
+
+    function draw() {
+      if (!document.getElementById('page-secret').classList.contains('active')) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i+1; j < particles.length; j++) {
+          const dx = particles[i].x-particles[j].x, dy = particles[i].y-particles[j].y;
+          const d = Math.sqrt(dx*dx+dy*dy);
+          if (d < 100) {
+            ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(0,198,255,${(0.06*(1-d/100)).toFixed(3)})`;
+            ctx.lineWidth = 0.5; ctx.stroke();
+          }
+        }
+      }
+      particles.forEach(p => {
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+        ctx.fillStyle = p.color; ctx.globalAlpha = p.alpha; ctx.fill(); ctx.globalAlpha = 1;
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+      });
+      canvasAnimId = requestAnimationFrame(draw);
+    }
+    draw();
+  }
+
+  // Konami close button
+  document.addEventListener('click', e => {
+    if (e.target && e.target.id === 'konami-close') {
+      const overlay = document.getElementById('konami-overlay');
+      if (overlay) overlay.classList.remove('show');
+    }
+  });
+  </script>
+
+</body>
+</html>
