@@ -7,7 +7,7 @@
   <style>
 /* ========== MAIN STYLES ========== */
 /* =============================================
-   CLASSICAL MECHANICS — Global Stylesheet
+   PHYSICS — Global Stylesheet
    ============================================= */
 
 * {
@@ -895,7 +895,159 @@ body.secret-active /* Konami hint */
 @media (max-width: 380px) {
   body.secret-active .wave-letter { font-size: 22px; }
 }
+  
+/* ========== AI CHAT ========== */
+.chat-container {
+  max-width: 700px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  height: 65vh;
+  min-height: 400px;
+  background: var(--card);
+  border: 1px solid rgba(96, 239, 255, 0.15);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.chat-header {
+  padding: 14px 20px;
+  background: linear-gradient(135deg, rgba(96, 239, 255, 0.08), rgba(96, 239, 255, 0.02));
+  border-bottom: 1px solid rgba(96, 239, 255, 0.1);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.chat-header .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #22c55e; box-shadow: 0 0 8px #22c55e;
+  animation: pulse-dot 2s infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; } 50% { opacity: 0.4; }
+}
+.chat-header h3 {
+  font-size: 1rem; color: var(--accent); font-weight: 600;
+}
+.chat-header .sub {
+  font-size: 0.75rem; color: var(--text-dim); margin-left: auto;
+}
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  scroll-behavior: smooth;
+}
+.chat-messages::-webkit-scrollbar { width: 6px; }
+.chat-messages::-webkit-scrollbar-thumb { background: rgba(96, 239, 255, 0.2); border-radius: 3px; }
+
+.msg {
+  max-width: 85%;
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+.msg.user {
+  align-self: flex-end;
+  background: linear-gradient(135deg, rgba(96, 239, 255, 0.12), rgba(96, 239, 255, 0.06));
+  border: 1px solid rgba(96, 239, 255, 0.2);
+  color: var(--text);
+}
+.msg.ai {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--text);
+}
+.msg.ai .label {
+  font-size: 0.7rem; color: var(--accent); margin-bottom: 4px; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.05em;
+}
+.msg.typing {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--text-dim);
+  font-style: italic;
+}
+
+.chat-input-area {
+  padding: 14px 16px;
+  border-top: 1px solid rgba(96, 239, 255, 0.1);
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.chat-input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(96, 239, 255, 0.15);
+  border-radius: 10px;
+  padding: 12px 16px;
+  color: var(--text);
+  font-size: 0.9rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.chat-input:focus { border-color: rgba(96, 239, 255, 0.4); }
+.chat-input::placeholder { color: var(--text-dim); }
+
+.chat-send {
+  background: linear-gradient(135deg, rgba(96, 239, 255, 0.15), rgba(96, 239, 255, 0.08));
+  border: 1px solid rgba(96, 239, 255, 0.25);
+  border-radius: 10px;
+  padding: 12px 20px;
+  color: var(--accent);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+.chat-send:hover { background: rgba(96, 239, 255, 0.2); }
+.chat-send:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.chat-suggestions {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px;
+}
+.chat-suggestion {
+  background: rgba(96, 239, 255, 0.06);
+  border: 1px solid rgba(96, 239, 255, 0.12);
+  border-radius: 20px;
+  padding: 8px 14px;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.chat-suggestion:hover {
+  background: rgba(96, 239, 255, 0.12);
+  border-color: rgba(96, 239, 255, 0.2);
+  color: var(--text);
+}
+
+.chat-notice {
+  text-align: center; font-size: 0.75rem; color: var(--text-dim);
+  padding: 8px; margin-top: 10px; opacity: 0.7;
+}
+
   </style>
+  <meta name="description" content="An interactive guide to physics — from Newtonian mechanics to quantum gravity, string theory, and beyond. Ask the AI anything.">
+  <meta property="og:title" content="Physics — From Newton to Quantum Gravity">
+  <meta property="og:description" content="An interactive guide to physics with an AI assistant. Classical mechanics, relativity, quantum mechanics, QFT, string theory, LQG, and original research.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#0a1628">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' fill='%2360efff'>⚛</text></svg>">
+  <script src="https://js.puter.com/v2/"></script>
 </head>
 <body>
 
@@ -1811,6 +1963,54 @@ body.secret-active /* Konami hint */
   </footer>
 </div>
 
+<div id="page-ai" class="page">
+<div class="hero">
+    <h2>Ask Physics AI</h2>
+    <p>Chat with an AI that knows physics — from Newton's laws to quantum gravity and everything in between.</p>
+  </div>
+
+  <div class="content">
+    <div class="card" style="padding: 0; overflow: hidden;">
+      <div class="chat-container">
+        <div class="chat-header">
+          <span class="dot"></span>
+          <h3>Physics AI</h3>
+          <span class="sub">Powered by Puter</span>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+          <div class="msg ai">
+            <div class="label">Physics AI</div>
+            Hey! I'm your physics assistant. Ask me about anything — classical mechanics, relativity, quantum mechanics, field theory, string theory, loop quantum gravity, or the research on this site. What's on your mind?
+          </div>
+        </div>
+        <div class="chat-input-area">
+          <input type="text" class="chat-input" id="chat-input" placeholder="Ask a physics question..." autocomplete="off">
+          <button class="chat-send" id="chat-send">Send</button>
+        </div>
+      </div>
+      <div class="chat-notice">AI responses are generated and may contain errors. Verify important results independently.</div>
+    </div>
+
+    <div class="card">
+      <h2>Try asking about:</h2>
+      <div class="chat-suggestions">
+        <span class="chat-suggestion" onclick="sendSuggestion(this)">What is the Uncertainty Principle?</span>
+        <span class="chat-suggestion" onclick="sendSuggestion(this)">Explain the Einstein field equations</span>
+        <span class="chat-suggestion" onclick="sendSuggestion(this)">How does the Higgs mechanism work?</span>
+        <span class="chat-suggestion" onclick="sendSuggestion(this)">What is a black hole made of?</span>
+        <span class="chat-suggestion" onclick="sendSuggestion(this)">Explain spin networks in LQG</span>
+        <span class="chat-suggestion" onclick="sendSuggestion(this)">What is the Unified Network Action?</span>
+        <span class="chat-suggestion" onclick="sendSuggestion(this)">Why is the speed of light constant?</span>
+        <span class="chat-suggestion" onclick="sendSuggestion(this)">What is quantum entanglement?</span>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span>Physics</span> — An Educational Resource | Built by Tioluwalope Adesuyan
+  </footer>
+</div>
+
 <div id="page-secret" class="page">
 <canvas id="particle-canvas"></canvas>
 
@@ -2108,7 +2308,7 @@ body.secret-active /* Konami hint */
   </footer>
 
   <script>
-  const FILE_TO_ID = {"index.html": "index", "hamilton.html": "hamilton", "lagrange.html": "lagrange", "newton.html": "newton", "relativity.html": "relativity", "quantum.html": "quantum", "qft.html": "qft", "string.html": "string", "research.html": "research", "lqg.html": "lqg", "secret.html": "secret"};
+  const FILE_TO_ID = {"index.html": "index", "hamilton.html": "hamilton", "lagrange.html": "lagrange", "newton.html": "newton", "relativity.html": "relativity", "quantum.html": "quantum", "qft.html": "qft", "string.html": "string", "research.html": "research", "lqg.html": "lqg", "ai.html": "ai", "secret.html": "secret"};
 
   function showPage(nameOrFile) {
     const id = FILE_TO_ID[nameOrFile] || nameOrFile;
@@ -2158,6 +2358,7 @@ body.secret-active /* Konami hint */
     { id: 'string',     label: 'String Theory',        file: 'string.html' },
     { id: 'lqg',       label: 'Loop Quantum Gravity', file: 'lqg.html' },
     { id: 'research',   label: '★ Research',           file: 'research.html' },
+    { id: 'ai',         label: '🤖 Ask AI',            file: 'ai.html' },
   ];
 
   // Determine current page
@@ -2212,6 +2413,7 @@ body.secret-active /* Konami hint */
     { page: 'string.html',     title: 'String Theory',         keywords: 'string theory extra dimensions M-theory superstring calabi yau ads cft witten compactification graviton' },
     { page: 'lqg.html',        title: 'Loop Quantum Gravity',  keywords: 'loop quantum gravity LQG Ashtekar spin network spin foam area quantization discrete space Rovelli Smolin Immirzi parameter black hole entropy Bekenstein Hawking loop quantum cosmology LQC big bounce spin foam EPRL' },
     { page: 'research.html',   title: 'Unified Network Action',keywords: 'UNA non-commutative quantum gravity ghost free chiral fermion moyal star product planck scale Adesuyan' },
+    { page: 'ai.html',        title: 'Ask Physics AI',        keywords: 'AI chat assistant physics help ask question bot artificial intelligence talk discuss explain' },
   ];
 
   function doSearch(query) {
@@ -2419,6 +2621,116 @@ body.secret-active /* Konami hint */
       if (overlay) overlay.classList.remove('show');
     }
   });
+  
+// ========== AI CHAT LOGIC ==========
+const PHYSICS_SYSTEM_PROMPT = `You are Physics AI, a knowledgeable physics tutor integrated into an educational physics website. You help users understand physics concepts at any level — from basic Newtonian mechanics to advanced quantum gravity.
+
+This website covers: Newtonian mechanics, Hamiltonian mechanics, Lagrangian mechanics, Relativity (special & general), Quantum Mechanics, Quantum Field Theory, String Theory, Loop Quantum Gravity, and original research called "The Unified Network Action" by Tioluwalope Adesuyan (a non-commutative, ghost-free quantum gravity framework with chiral regularization).
+
+Rules:
+- Be concise but thorough. Use clear, accessible language.
+- When discussing equations, write them in plain text (no LaTeX).
+- If a question is outside physics or science, gently redirect back to physics.
+- If you don't know something, say so honestly.
+- Be enthusiastic about physics — it's a beautiful subject.
+- Keep responses to a reasonable length for a chat interface.
+- You can reference concepts from any area of physics, not just what's on this site.`;
+
+let chatHistory = [];
+let chatBusy = false;
+
+function addChatMessage(text, role) {
+  const container = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.className = 'msg ' + role;
+  if (role === 'ai') {
+    div.innerHTML = '<div class="label">Physics AI</div>' + escapeHtml(text);
+  } else {
+    div.textContent = text;
+  }
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+  return div;
+}
+
+function escapeHtml(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+function showTyping() {
+  const container = document.getElementById('chat-messages');
+  const div = document.createElement('div');
+  div.className = 'msg typing';
+  div.id = 'typing-indicator';
+  div.textContent = 'Physics AI is thinking...';
+  container.appendChild(div);
+  container.scrollTop = container.scrollHeight;
+}
+
+function hideTyping() {
+  const el = document.getElementById('typing-indicator');
+  if (el) el.remove();
+}
+
+async function sendChatMessage(text) {
+  if (chatBusy || !text.trim()) return;
+  chatBusy = true;
+  
+  addChatMessage(text, 'user');
+  chatHistory.push({ role: 'user', content: text });
+  
+  const input = document.getElementById('chat-input');
+  const sendBtn = document.getElementById('chat-send');
+  input.value = '';
+  input.disabled = true;
+  sendBtn.disabled = true;
+  
+  showTyping();
+  
+  try {
+    const messages = [
+      { role: 'system', content: PHYSICS_SYSTEM_PROMPT },
+      ...chatHistory.slice(-10)
+    ];
+    
+    const response = await puter.ai.chat(messages, { model: 'gpt-4o-mini' });
+    const reply = response.message?.content || response.text || response || 'Sorry, I could not generate a response.';
+    
+    hideTyping();
+    addChatMessage(reply, 'ai');
+    chatHistory.push({ role: 'assistant', content: reply });
+  } catch (err) {
+    hideTyping();
+    addChatMessage('Sorry, something went wrong. Please try again. (' + (err.message || 'Unknown error') + ')', 'ai');
+  }
+  
+  input.disabled = false;
+  sendBtn.disabled = false;
+  input.focus();
+  chatBusy = false;
+}
+
+function sendSuggestion(el) {
+  sendChatMessage(el.textContent);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const input = document.getElementById('chat-input');
+  const sendBtn = document.getElementById('chat-send');
+  
+  if (input && sendBtn) {
+    sendBtn.addEventListener('click', () => sendChatMessage(input.value));
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendChatMessage(input.value);
+      }
+    });
+  }
+});
+
   </script>
 
 </body>
