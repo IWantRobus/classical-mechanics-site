@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-  <title>Physics</title>
+  <title>Physics — The Journey to Quantum Gravity</title>
   <style>
 /* ========== MAIN STYLES ========== */
 /* =============================================
@@ -473,7 +473,10 @@ footer span { color: var(--accent2); }
     flex-shrink: 0;
     border-bottom-width: 2px;
   }
-  .topnav .search-wrapper { display: none; }
+  .topnav .search-wrapper { display: block; margin-left: auto; }
+  .topnav .search-box { width: 120px; font-size: 12px; padding: 5px 10px 5px 28px; }
+  .search-icon { font-size: 12px; left: 8px; }
+  .search-results { width: 220px; right: 8px; }
   .hero, .research-hero { padding: 30px 16px; }
   .hero h2, .research-hero h2 { font-size: 22px; }
   .hero p, .research-hero .subtitle { font-size: 13px; }
@@ -871,7 +874,10 @@ body.secret-active /* Konami hint */
   .topnav { overflow-x: auto; -webkit-overflow-scrolling: touch; flex-wrap: nowrap; padding: 0 6px; scrollbar-width: none; }
   .topnav::-webkit-scrollbar { display: none; }
   .topnav a { white-space: nowrap; font-size: 12px; padding: 11px 12px; flex-shrink: 0; border-bottom-width: 2px; }
-  .topnav .search-wrapper { display: none; }
+  .topnav .search-wrapper { display: block; margin-left: auto; }
+  .topnav .search-box { width: 120px; font-size: 12px; padding: 5px 10px 5px 28px; }
+  .search-icon { font-size: 12px; left: 8px; }
+  .search-results { width: 220px; right: 8px; }
   .hero, .research-hero { padding: 30px 16px; }
   .hero h2, .research-hero h2 { font-size: 22px; }
   .hero p, .research-hero .subtitle { font-size: 13px; }
@@ -1056,82 +1062,88 @@ body.secret-active /* Konami hint */
   
 <div id="page-index" class="page active">
 <div class="hero">
-    <h2>Physics</h2>
-    <p>A timeless framework describing how the physical world moves — from falling apples to orbiting planets.</p>
+    <h2>The Journey to Quantum Gravity</h2>
+    <p>From Newton's falling apple to the quantum structure of spacetime itself — this is the story of physics, told as one continuous journey.</p>
   </div>
 
   <div class="content">
 
     <div class="card">
-      <h2>What is Physics?</h2>
-      <p>Classical mechanics is the branch of physics that tries to make sense of how things move — from cannonballs to planets, from spinning tops to colliding billiard balls. At its heart, it's built on a handful of principles about force, mass, energy, and momentum that turn out to be remarkably good at describing the world around us.</p>
-      <p>It's worth knowing where it fits in the bigger picture: classical mechanics handles objects large enough that quantum weirdness doesn't matter, and moving slowly enough that Einstein's relativistic effects can be safely ignored. In that sweet spot — which happens to cover most of everyday engineering and astronomy — it's essentially exact.</p>
-      <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Orbital_motion.gif" alt="Orbital motion animation">
-      <div class="fact-box">
-        "If I have seen further, it is by standing on the shoulders of giants." — Isaac Newton
-      </div>
+      <h2>What Is This Site?</h2>
+      <p>Physics is the deepest attempt humans have made to understand how the universe works. It started with simple questions: why do things fall? How do planets move? What is light? Over centuries, those questions spiralled inward to the quantum scale and outward to the shape of spacetime itself — and they haven't stopped yet.</p>
+      <p>This site traces that journey, step by step. Each section builds on the last, from the laws that govern a rolling ball to the mathematics that may quantize space and time. You don't need a physics degree to follow along — just curiosity.</p>
+      <div class="fact-box">"The important thing is not to stop questioning. Curiosity has its own reason for existing." — Albert Einstein</div>
     </div>
 
     <div class="card">
-      <h2>Core Concepts</h2>
-      <h3>Newton's Laws of Motion</h3>
-      <p>The three laws Newton laid out in 1687 still sit at the centre of classical mechanics, and they're worth knowing cold:</p>
-      <ul>
-        <li><strong>First Law (Inertia):</strong> An object keeps doing what it's doing — rest or constant motion — unless something pushes or pulls it.</li>
-        <li><strong>Second Law (F = ma):</strong> The harder you push something, and the lighter it is, the faster it accelerates.</li>
-        <li><strong>Third Law (Action-Reaction):</strong> Every force comes with an equal and opposite force in the other direction — no exceptions.</li>
-      </ul>
-      <div class="equation">F = ma</div>
-
-      <h3>Conservation Laws</h3>
-      <ul>
-        <li><strong>Conservation of Energy:</strong> In a closed system, energy doesn't appear or vanish — it just changes form.</li>
-        <li><strong>Conservation of Momentum:</strong> Without external forces, the total momentum of a system stays fixed.</li>
-        <li><strong>Conservation of Angular Momentum:</strong> Without external torque, spinning things keep spinning at the same rate — which is why ice skaters speed up when they pull in their arms.</li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <h2>Three Formulations</h2>
-      <p>Over the centuries, physicists found cleverer and cleverer ways to express the same underlying physics. Each formulation has its strengths depending on the problem at hand:</p>
+      <h2>The Roadmap</h2>
+      <p>Physics didn't develop in a straight line, but there's a natural order to the ideas — each one solving problems the previous couldn't:</p>
       <div class="scientist-grid">
         <div class="scientist-card">
-          <div class="name">Newtonian Mechanics</div>
-          <div class="dates">~1687</div>
-          <p>Forces and direct application of Newton's laws. The most intuitive starting point for most problems.</p>
+          <div class="name">1. Newtonian Mechanics</div>
+          <div class="dates">1687</div>
+          <p>Forces, masses, and motion. The foundation everything else is built on.</p>
         </div>
         <div class="scientist-card">
-          <div class="name">Lagrangian Mechanics</div>
-          <div class="dates">~1788</div>
-          <p>Works with energy rather than forces. Handles constrained systems and awkward coordinate systems beautifully.</p>
+          <div class="name">2. Lagrangian Mechanics</div>
+          <div class="dates">1788</div>
+          <p>A reformulation using energy and the Principle of Least Action — more powerful, more general.</p>
         </div>
         <div class="scientist-card">
-          <div class="name">Hamiltonian Mechanics</div>
-          <div class="dates">~1833</div>
-          <p>Uses phase space and canonical variables — the natural bridge from classical physics into quantum theory.</p>
+          <div class="name">3. Hamiltonian Mechanics</div>
+          <div class="dates">1833</div>
+          <p>Phase space and symmetry — the mathematical bridge that leads directly to quantum theory.</p>
+        </div>
+        <div class="scientist-card">
+          <div class="name">4. Relativity</div>
+          <div class="dates">1905 &ndash; 1915</div>
+          <p>Einstein rewrote space and time. Special relativity unifies them; general relativity makes gravity geometry.</p>
+        </div>
+        <div class="scientist-card">
+          <div class="name">5. Quantum Mechanics</div>
+          <div class="dates">1920s</div>
+          <p>The microscopic world doesn't play by classical rules. Probabilities, superposition, uncertainty.</p>
+        </div>
+        <div class="scientist-card">
+          <div class="name">6. Quantum Field Theory</div>
+          <div class="dates">1940s &ndash; 1970s</div>
+          <p>Marrying quantum mechanics with special relativity: particles are excitations of fields. The Standard Model.</p>
+        </div>
+        <div class="scientist-card">
+          <div class="name">7. String Theory</div>
+          <div class="dates">1970s &ndash; present</div>
+          <p>Replace point particles with vibrating strings. Gravity comes built in, but at the cost of extra dimensions.</p>
+        </div>
+        <div class="scientist-card">
+          <div class="name">8. Loop Quantum Gravity</div>
+          <div class="dates">1980s &ndash; present</div>
+          <p>Quantize geometry directly. Space itself is discrete — a network of spin connections at the Planck scale.</p>
+        </div>
+        <div class="scientist-card">
+          <div class="name">9. Research</div>
+          <div class="dates">Original Work</div>
+          <p>The Unified Network Action &mdash; a non-commutative, ghost-free framework for quantum gravity.</p>
         </div>
       </div>
     </div>
 
     <div class="card">
-      <h2>Key Figures</h2>
-      <div class="scientist-grid">
-        <div class="scientist-card">
-          <div class="name">Isaac Newton</div>
-          <div class="dates">1643 – 1727</div>
-          <p>Wrote the rulebook for classical mechanics in his Principia Mathematica — laws of motion and universal gravitation in one go.</p>
-        </div>
-        <div class="scientist-card">
-          <div class="name">Galileo Galilei</div>
-          <div class="dates">1564 – 1642</div>
-          <p>Did the hard experimental work first — rolling balls, timing pendulums, dropping things from towers to see what actually happens.</p>
-        </div>
-        <div class="scientist-card">
-          <div class="name">Leonhard Euler</div>
-          <div class="dates">1707 – 1783</div>
-          <p>Gave classical mechanics much of its mathematical machinery, including the equations governing rigid body motion.</p>
-        </div>
-      </div>
+      <h2>The Central Problem</h2>
+      <p>The two most successful theories in physics are fundamentally incompatible:</p>
+      <ul>
+        <li><strong>General Relativity</strong> describes gravity as the curvature of smooth, continuous spacetime. It works beautifully at large scales &mdash; planets, galaxies, the cosmos.</li>
+        <li><strong>Quantum Mechanics</strong> describes the microscopic world as probabilistic and discrete. It works exquisitely at small scales &mdash; atoms, particles, fields.</li>
+      </ul>
+      <p>But when you try to combine them &mdash; when you ask what happens at the center of a black hole, or at the very beginning of the universe &mdash; the mathematics breaks down. The equations produce infinities. The smooth spacetime of general relativity cannot coexist with the quantum fuzziness of the microscopic world.</p>
+      <p>This is the great unsolved problem of modern physics: <strong>quantum gravity</strong>. String theory and loop quantum gravity are the leading contenders. The Unified Network Action is another approach, developed on this very site.</p>
+      <div class="fact-box">"Quantum gravity is not just a theory &mdash; it's the name we give to our ignorance." &mdash; paraphrasing Carlo Rovelli</div>
+    </div>
+
+    <div class="card">
+      <h2>Where to Start?</h2>
+      <p>If you're new to physics, start at the beginning with Newtonian Mechanics and work forward. Each page assumes you've read the ones before it, but you can also jump to whatever interests you &mdash; use the search bar above to find any topic.</p>
+      <p>If you already know the basics and want the cutting edge, skip to String Theory, Loop Quantum Gravity, or the Research page.</p>
+      <p>Or just <strong>ask the AI</strong> &mdash; the 🤖 Ask AI page lets you chat with a physics assistant that knows every topic on this site.</p>
     </div>
 
   </div>
@@ -2348,10 +2360,10 @@ body.secret-active /* Konami hint */
 
 (function () {
   const pages = [
-    { id: 'index',      label: 'Physics', file: 'index.html' },
-    { id: 'hamilton',   label: 'Hamiltonian',          file: 'hamilton.html' },
-    { id: 'lagrange',   label: 'Lagrangian',           file: 'lagrange.html' },
+    { id: 'index',      label: 'Home',                file: 'index.html' },
     { id: 'newton',     label: 'Newtonian',            file: 'newton.html' },
+    { id: 'lagrange',   label: 'Lagrangian',           file: 'lagrange.html' },
+    { id: 'hamilton',   label: 'Hamiltonian',          file: 'hamilton.html' },
     { id: 'relativity', label: 'Relativity',           file: 'relativity.html' },
     { id: 'quantum',    label: 'Quantum',              file: 'quantum.html' },
     { id: 'qft',        label: 'QFT',                  file: 'qft.html' },
@@ -2374,7 +2386,7 @@ body.secret-active /* Konami hint */
         onclick="showPage('secret')">
       <div class="header-text">
         <h1>Physics</h1>
-        <p>The study of matter, energy, and the fundamental laws of nature</p>
+        <p>From Newton to quantum gravity — the complete journey</p>
       </div>
     </header>`;
 
@@ -2403,7 +2415,7 @@ body.secret-active /* Konami hint */
   // ---- SEARCH ----
   // Page content index
   const searchIndex = [
-    { page: 'index.html',      title: 'Physics',   keywords: 'newton laws motion force mass energy momentum conservation inertia galileo euler' },
+    { page: 'index.html',      title: 'The Journey to Quantum Gravity', keywords: 'physics overview introduction journey newton einstein quantum gravity relativity string theory loop roadmap classical modern spacetime' },
     { page: 'hamilton.html',   title: 'Hamiltonian Mechanics', keywords: 'hamilton phase space canonical equations energy kinetic potential symmetry quantum bridge poisson bracket' },
     { page: 'lagrange.html',   title: 'Lagrangian Mechanics',  keywords: 'lagrange euler lagrange equation action principle least action generalised coordinates pendulum constraint' },
     { page: 'newton.html',     title: 'Newtonian Mechanics',   keywords: 'newton laws gravity F=ma acceleration inertia action reaction universal gravitation projectile orbit' },
