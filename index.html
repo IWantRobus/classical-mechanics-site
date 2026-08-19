@@ -1046,6 +1046,58 @@ body.secret-active /* Konami hint */
   padding: 8px; margin-top: 10px; opacity: 0.7;
 }
 
+  
+/* ========== BACK TO TOP ========== */
+.back-to-top {
+  position: fixed; bottom: 20px; right: 20px;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(96, 239, 255, 0.12);
+  border: 1px solid rgba(96, 239, 255, 0.25);
+  color: var(--accent); font-size: 20px; cursor: pointer;
+  display: none; align-items: center; justify-content: center;
+  z-index: 200; transition: all 0.2s; opacity: 0;
+}
+.back-to-top.show { display: flex; opacity: 1; }
+.back-to-top:hover { background: rgba(96, 239, 255, 0.2); transform: translateY(-2px); }
+
+/* ========== READING PROGRESS BAR ========== */
+.reading-progress {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  width: 0%; z-index: 300; transition: width 0.1s;
+}
+
+/* ========== CHAT CLEAR BUTTON ========== */
+.chat-clear {
+  background: none; border: 1px solid rgba(255,100,100,0.2);
+  border-radius: 6px; padding: 4px 10px; font-size: 0.72rem;
+  color: rgba(255,100,100,0.7); cursor: pointer; transition: all 0.2s;
+}
+.chat-clear:hover { background: rgba(255,100,100,0.1); color: rgba(255,150,150,0.9); }
+
+/* ========== TYPING DOTS ========== */
+.typing-dots { display: inline-flex; gap: 4px; }
+.typing-dots span {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--accent); opacity: 0.4;
+  animation: typing-bounce 1.4s infinite;
+}
+.typing-dots span:nth-child(2) { animation-delay: 0.2s; }
+.typing-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typing-bounce {
+  0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+  30% { opacity: 1; transform: translateY(-4px); }
+}
+
+/* ========== COPY BUTTON ========== */
+.msg-copy {
+  font-size: 0.7rem; color: var(--text-dim); cursor: pointer;
+  margin-top: 6px; opacity: 0; transition: opacity 0.2s;
+  display: inline-block; user-select: none;
+}
+.msg.ai:hover .msg-copy { opacity: 0.6; }
+.msg-copy:hover { opacity: 1 !important; color: var(--accent); }
+
   </style>
   <meta name="description" content="An interactive guide to physics — from Newtonian mechanics to quantum gravity, string theory, and beyond. Ask the AI anything.">
   <meta property="og:title" content="Physics — From Newton to Quantum Gravity">
@@ -1056,6 +1108,8 @@ body.secret-active /* Konami hint */
   <script src="https://js.puter.com/v2/"></script>
 </head>
 <body>
+  <div class="reading-progress" id="reading-progress"></div>
+  <button class="back-to-top" id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
   <div id="nav-mount"></div>
 
@@ -1988,6 +2042,7 @@ body.secret-active /* Konami hint */
           <span class="dot"></span>
           <h3>Physics AI</h3>
           <span class="sub">Powered by Puter</span>
+          <button class="chat-clear" id="chat-clear" onclick="clearChat()">Clear</button>
         </div>
         <div class="chat-messages" id="chat-messages">
           <div class="msg ai">
@@ -2453,7 +2508,7 @@ body.secret-active /* Konami hint */
         // Build a snippet by highlighting the query words in the keywords
         const snippetSource = entry.keywords;
         const snippet = highlightSnippet(snippetSource, words);
-        return `<div class="search-result-item" onclick="window.location.href='${entry.page}'">
+        return `<div class="search-result-item" onclick="showPage('${entry.page}'); document.getElementById('search-input').value=''; document.getElementById('search-results').classList.remove('open');">
           <div class="result-title">${entry.title}</div>
           <div class="result-snippet">${snippet}</div>
         </div>`;
@@ -2650,19 +2705,68 @@ Rules:
 
 let chatHistory = [];
 let chatBusy = false;
+const CHAT_STORAGE_KEY = 'physics_ai_chat_history';
+
+function saveChatHistory() {
+  try {
+    localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(chatHistory));
+  } catch(e) {}
+}
+
+function loadChatHistory() {
+  try {
+    const saved = localStorage.getItem(CHAT_STORAGE_KEY);
+    if (saved) {
+      chatHistory = JSON.parse(saved);
+      const container = document.getElementById('chat-messages');
+      if (!container) return;
+      // Clear the default welcome message
+      container.innerHTML = '';
+      if (chatHistory.length === 0) {
+        // Show welcome message
+        const div = document.createElement('div');
+        div.className = 'msg ai';
+        div.innerHTML = '<div class="label">Physics AI</div>Hey! I\'m your physics assistant. Ask me about anything \u2014 classical mechanics, relativity, quantum mechanics, field theory, string theory, loop quantum gravity, or the research on this site. What\'s on your mind?';
+        container.appendChild(div);
+      } else {
+        chatHistory.forEach(msg => {
+          if (msg.role === 'user') addChatMessage(msg.content, 'user');
+          else if (msg.role === 'assistant') addChatMessage(msg.content, 'ai');
+        });
+      }
+    }
+  } catch(e) {}
+}
+
+function clearChat() {
+  chatHistory = [];
+  try { localStorage.removeItem(CHAT_STORAGE_KEY); } catch(e) {}
+  const container = document.getElementById('chat-messages');
+  if (container) {
+    container.innerHTML = '<div class="msg ai"><div class="label">Physics AI</div>Chat cleared. Ask me anything about physics!</div>';
+  }
+}
 
 function addChatMessage(text, role) {
   const container = document.getElementById('chat-messages');
   const div = document.createElement('div');
   div.className = 'msg ' + role;
   if (role === 'ai') {
-    div.innerHTML = '<div class="label">Physics AI</div>' + escapeHtml(text);
+    div.innerHTML = '<div class="label">Physics AI</div>' + escapeHtml(text) + '<div class="msg-copy" onclick="copyMessage(this)">copy</div>';
   } else {
     div.textContent = text;
   }
   container.appendChild(div);
   container.scrollTop = container.scrollHeight;
   return div;
+}
+
+function copyMessage(el) {
+  const text = el.parentElement.textContent.replace('Physics AIcopy', '').trim();
+  navigator.clipboard.writeText(text).then(() => {
+    el.textContent = 'copied!';
+    setTimeout(() => { el.textContent = 'copy'; }, 1500);
+  });
 }
 
 function escapeHtml(s) {
@@ -2676,7 +2780,7 @@ function showTyping() {
   const div = document.createElement('div');
   div.className = 'msg typing';
   div.id = 'typing-indicator';
-  div.textContent = 'Physics AI is thinking...';
+  div.innerHTML = '<div class="label">Physics AI</div><div class="typing-dots"><span></span><span></span><span></span></div>';
   container.appendChild(div);
   container.scrollTop = container.scrollHeight;
 }
@@ -2692,6 +2796,7 @@ async function sendChatMessage(text) {
   
   addChatMessage(text, 'user');
   chatHistory.push({ role: 'user', content: text });
+  saveChatHistory();
   
   const input = document.getElementById('chat-input');
   const sendBtn = document.getElementById('chat-send');
@@ -2713,6 +2818,7 @@ async function sendChatMessage(text) {
     hideTyping();
     addChatMessage(reply, 'ai');
     chatHistory.push({ role: 'assistant', content: reply });
+    saveChatHistory();
   } catch (err) {
     hideTyping();
     addChatMessage('Sorry, something went wrong. Please try again. (' + (err.message || 'Unknown error') + ')', 'ai');
@@ -2729,6 +2835,7 @@ function sendSuggestion(el) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+  loadChatHistory();
   const input = document.getElementById('chat-input');
   const sendBtn = document.getElementById('chat-send');
   
@@ -2741,6 +2848,20 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
+  
+  // Reading progress bar
+  window.addEventListener('scroll', function() {
+    const bar = document.getElementById('reading-progress');
+    const btn = document.getElementById('back-to-top');
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    if (bar) bar.style.width = pct + '%';
+    if (btn) {
+      if (scrollTop > 300) btn.classList.add('show');
+      else btn.classList.remove('show');
+    }
+  });
 });
 
   </script>
