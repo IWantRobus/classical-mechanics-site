@@ -1896,7 +1896,7 @@ body.secret-active /* Konami hint */
     <div class="card">
       <h2>Abstract</h2>
       <div class="abstract-box">
-        This paper presents a unified framework for quantum gravity based on a dynamic non-commutative spacetime geometry, reduced to its minimal form: one operator K, one product ★, and one dynamical field θ<sup>μν</sup>(x). By treating spacetime as a fluid-like network of quantum nodes, the master action is ultraviolet-complete, ghost-free, and two lines long. The framework naturally incorporates chiral fermions without the fermion doubling problem, reduces to standard QFT and General Relativity at low energies, and resolves the incompatibility between quantum mechanics and gravity without introducing a rigid lattice structure.
+        This paper presents a unified framework for quantum gravity based on a dynamic non-commutative spacetime geometry. By treating spacetime as a fluid-like network of quantum nodes with a dynamical non-commutativity parameter θ<sup>μν</sup>(x), we construct a master action that is ultraviolet-complete and ghost-free. The framework naturally incorporates chiral fermions without the fermion doubling problem, reduces to standard QFT and General Relativity at low energies, and resolves the incompatibility between quantum mechanics and gravity without introducing a rigid lattice structure.
       </div>
       <div>
         <span class="contribution-tag">Quantum Gravity</span>
@@ -1921,32 +1921,30 @@ body.secret-active /* Konami hint */
       <div class="fact-box">The Unified Network Action sidesteps all of these by making the non-commutativity itself a <em>dynamic physical field</em> — not a fixed background constant.</div>
     </div>
 
-    <div class="section-divider">Section II — The Minimal Action</div>
+    <div class="section-divider">Section II — The Master Action</div>
     <div class="card">
-      <h2>II. The Minimal Action</h2>
-      <p>A theory reaches its final form when nothing in it can be taken away. The master action below is deliberately minimal: every object appears exactly once, nothing is redundant, and nothing can be removed without the theory losing a physical claim. The entire framework is built from <strong>three objects</strong>:</p>
-      <ul>
-        <li><strong>One operator</strong> — the ghost-free kinetic operator:</li>
-      </ul>
-      <div class="paper-equation">K ≡ □ e<sup>−□/M²_P</sup></div>
-      <ul>
-        <li><strong>One product</strong> — the Moyal star-product ★, which carries the non-commutative geometry.</li>
-        <li><strong>One dynamical field</strong> — θ<sup>μν</sup>(x), which carries the dynamics of spacetime itself.</li>
-      </ul>
-      <p>The total action is then <strong>two lines</strong>:</p>
+      <h2>II. The Master Action S<sub>UNA</sub></h2>
+      <p>The central object of the framework is the <strong>Master Action</strong>. Spacetime is treated as a dynamic network of quantum nodes. The non-commutativity parameter θ<sup>μν</sup>(x) is promoted to a full dynamical field — it fluctuates, carries energy, and responds to matter:</p>
 
       <div class="paper-equation">
-        S = S<sub>NC</sub> + S<sub>θ</sub><br><br>
-        S<sub>NC</sub> = ∫ d<sup>4</sup>x★ Tr( ½ Φ K Φ − ¼ g F★F ) + S<sub>GW</sub>[ψ, D★]<br>
-        S<sub>θ</sub> = (1/2κ²) ∫ d<sup>4</sup>x ∂<sub>ρ</sub>θ<sup>μν</sup>(x) ∂<sup>ρ</sup>θ<sub>μν</sub>(x)
+        S = ∫ d<sup>4</sup>x★ [ ½ Tr(Φ □ e<sup>−□/M²_P</sup> Φ) − g/4 · F²★ ]<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;+ S<sub>GW</sub>[ψ, D★]<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;+ 1/(2κ²) ∫ d<sup>4</sup>x ∂ρθ<sup>μν</sup>(x) ∂<sup>ρ</sup>θ<sub>μν</sub>(x)
       </div>
 
-      <p>Each line governs a different sector:</p>
+      <p>The three terms each govern a different sector:</p>
       <ul>
-        <li><strong>S<sub>NC</sub>:</strong> The matter sector — the scalar field Φ with kinetic operator K, the gauge field F with running coupling g, and the Ginsparg-Wilson fermion action governing chiral matter without fermion doubling. All integrated over the non-commutative measure d<sup>4</sup>x★.</li>
-        <li><strong>S<sub>θ</sub>:</strong> The kinetic term for θ<sup>μν</sup>(x) itself — the non-commutativity field propagates dynamically with gravitational coupling κ². Note it carries no star: θ lives on ordinary spacetime.</li>
+        <li><strong>First line:</strong> The scalar field Φ with an infinite-derivative kinetic operator □e<sup>−□/M²_P</sup>, plus the star-product gauge field term — the UV-regulated bosonic sector.</li>
+        <li><strong>S<sub>GW</sub>[ψ, D★]:</strong> The Ginsparg-Wilson fermion action — governing chiral matter without fermion doubling.</li>
+        <li><strong>Third line:</strong> The kinetic term for θ<sup>μν</sup>(x) itself — the non-commutativity field propagates dynamically with gravitational coupling κ².</li>
       </ul>
-      <div class="fact-box">The classical limit is visible directly in the equation: as θ → 0, K → □, both deformations switch off together, and ordinary field theory is recovered.</div>
+      <p>The key parameters:</p>
+      <ul>
+        <li><strong>M<sub>P</sub></strong> — the fundamental Planck mass scale</li>
+        <li><strong>g</strong> — the running gauge coupling constant</li>
+        <li><strong>κ²</strong> — the gravitational coupling for the dynamic coordinate landscape</li>
+        <li><strong>d<sup>4</sup>x★</strong> — the non-commutative spacetime measure</li>
+      </ul>
     </div>
 
     <div class="section-divider">Section III — Physical Mechanisms and Regularisation</div>
